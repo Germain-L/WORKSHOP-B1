@@ -13,6 +13,9 @@ class FingSwipe extends Game {
   }
 
   void initialize() async {
+    
+    Flame.audio.loopLongAudio('background.mp3');
+
     swipableSquares = List<SwipableSquare>();
     resize(await Flame.util.initialDimensions());
     spawnSquare();
