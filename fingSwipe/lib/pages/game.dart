@@ -1,4 +1,8 @@
+import 'dart:math';
+
+import 'package:fingSwipe/providers/game_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:swipedetector/swipedetector.dart';
 
 class FingSwipeGame extends StatefulWidget {
@@ -7,39 +11,60 @@ class FingSwipeGame extends StatefulWidget {
 }
 
 class _FingSwipeGameState extends State<FingSwipeGame> {
-  String swipedirection = "Start";
+  bool start = true;
+
+  void check(int directionIndex) {}
+
   @override
   Widget build(BuildContext context) {
+    final gameSettings = Provider.of<GameSettings>(context);
+    if (start) {
+      print("started");
+      gameSettings.startGame();
+      setState(() {
+        start = false;
+      });
+    }
     return Container(
       child: SwipeDetector(
-        onSwipeDown: () {
-          print('Down');
-          setState(() {
-            swipedirection = "Down";
-          });
-        },
         onSwipeUp: () {
-          print('Up');
-          setState(() {
-            swipedirection = "Up";
-          });
-        },
-        onSwipeLeft: () {
-          print('Left');
-          setState(() {
-            swipedirection = "Left";
-          });
+          gameSettings.check(0);
         },
         onSwipeRight: () {
-          print('right');
-          setState(() {
-            swipedirection = "Right";
-          });
+          gameSettings.check(2);
+        },
+        onSwipeDown: () {
+          gameSettings.check(2);
+        },
+        onSwipeLeft: () {
+          gameSettings.check(3);
         },
         child: SizedBox.expand(
-          child: Text(
-            swipedirection,
-            style: TextStyle(color: Colors.black),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Score: ${gameSettings.score}",
+                style: TextStyle(fontSize: 55),
+              ),
+              Text(
+                gameSettings.currentMode ?? "",
+                style: TextStyle(fontSize: 50, color: Colors.black),
+              ),
+              Text(gameSettings.textDirections[gameSettings.currentTextIndex]),
+              SizedBox(height: 100),
+              Transform.rotate(
+                // TODO: make this cleaner
+                angle: gameSettings
+                        .arrowOrientation[gameSettings.currentArrowIndex] *
+                    pi /
+                    180,
+                child: Transform.scale(
+                  scale: 7,
+                  child: Icon(Icons.arrow_upward),
+                ),
+              ),
+            ],
           ),
         ),
       ),
