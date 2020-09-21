@@ -9,3 +9,5 @@ Colors: https://coolors.co/052f5f-005377-06a77d-d5c67a-f1a208
  - #06A77D
  - #D5C67A
  - #F1A208
+
+ ![couleurs](https://github.com/Germain-L/WORKSHOP-B1/blob/master/Couleur.png)
