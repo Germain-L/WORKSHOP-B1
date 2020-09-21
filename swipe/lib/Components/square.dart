@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:swipe/game/game.dart';
 
 class SwipableSquare {
@@ -10,14 +11,18 @@ class SwipableSquare {
   Paint squarePaint;
 
   SwipableSquare(this.game, double x, double y) {
-    swipeSquare = Rect.fromLTRB(x, y, game.tileSize, game.tileSize);
+    swipeSquare = Rect.fromCenter(
+      center: Offset(x, y),
+      height: 200,
+      width: 200,
+    );
     squarePaint = Paint();
     squarePaint.color = Color(0xff052f5f);
   }
+
   void render(Canvas c) {
+    c.drawRect(swipeSquare, squarePaint);
   }
 
-  void update(double t) {
-
-  }
+  void update(double t) {}
 }
