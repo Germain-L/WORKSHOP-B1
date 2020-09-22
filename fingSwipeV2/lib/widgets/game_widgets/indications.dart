@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -17,27 +18,25 @@ class _IndicationsState extends State<Indications> {
       width: 300,
       height: 300,
       decoration: BoxDecoration(
-        border: Border.all(width: 3),
-        borderRadius: BorderRadius.circular(25)
-      ),
+          border: Border.all(width: 3),
+          borderRadius: BorderRadius.circular(25)),
       padding: const EdgeInsets.all(8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Transform.rotate(
+            angle: game.currentArrowDirection,
+            child: SvgPicture.asset(
+              'assets/arrow.svg',
+              fit: BoxFit.scaleDown,
+              height: 100,
+              color: game.arrowColor,
+            ),
+          ),
+          SizedBox(height: 10),
           Text(
             game.currentWordDirection,
             style: TextStyle(fontSize: 35, color: game.wordColor),
-          ),
-          SizedBox(height: 40),
-          Transform.rotate(
-            angle: game.currentArrowDirection,
-            child: Transform.scale(
-              scale: 4,
-              child: Icon(
-                LineIcons.long_arrow_up,
-                color: game.arrowColor,
-              ),
-            ),
           ),
         ],
       ),

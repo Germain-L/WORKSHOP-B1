@@ -14,9 +14,14 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nav = Provider.of<Nav>(context);
-    return Scaffold(
-      appBar: CustomAppBar(),
-      body: pages.elementAt(nav.currentPage),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: CustomAppBar(),
+          body: pages.elementAt(nav.currentPage),
+        ),
+        nav.currentBg,
+      ],
     );
   }
 }
