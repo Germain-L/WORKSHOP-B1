@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class Game with ChangeNotifier {
   final Random random = Random();
 
-  bool isAlive = false;
+  bool isAlive = true;
 
   int score = 0;
   int previousScore = 0;
@@ -42,9 +42,7 @@ class Game with ChangeNotifier {
 
   Duration timeGivenToSwipe = Duration(milliseconds: 500);
 
-
   void runGame() async {
-    isAlive = true;
     while (isAlive) {
       changeDirection();
       if (score % 5 == 0 && score > 1) {
@@ -54,9 +52,11 @@ class Game with ChangeNotifier {
         isAlive = false;
       }
 
-      notifyListeners();
       await Future.delayed(timeGivenToSwipe);
+      previousAbsoluteDirection = absoluteDirection;
+      previousWrongDirection = absoluteWrongDirection;
     }
+
     notifyListeners();
   }
 
@@ -64,7 +64,6 @@ class Game with ChangeNotifier {
     currentSwipeMode == swipeModes[0]
         ? currentSwipeMode = swipeModes[1]
         : currentSwipeMode = swipeModes[0];
-    notifyListeners();
   }
 
   void changeDirection() {
@@ -82,15 +81,11 @@ class Game with ChangeNotifier {
       // in arrow mode, change arrow to correct dir and word to a wrong dir
       currentArrowDirection = arrowDirections[absoluteDirection];
       currentWordDirection = wordDirections[absoluteWrongDirection];
-
     } else if (swipeModes == swipeModes[1]) {
       // in word mode, change word to correct dir and arrow to a wrong dir
       currentWordDirection = wordDirections[absoluteDirection];
       currentArrowDirection = arrowDirections[absoluteWrongDirection];
     }
-
-    previousAbsoluteDirection = absoluteDirection;
-    previousWrongDirection = absoluteWrongDirection;
   }
 
   void check(int direction) {
