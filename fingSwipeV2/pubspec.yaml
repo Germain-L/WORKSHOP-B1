@@ -17,6 +17,7 @@ dependencies:
   audioplayer: ^0.8.1
   provider: ^4.3.2+2
   line_icons: ^0.2.0
+  simple_gesture_detector: ^0.1.4
 
 dev_dependencies:
   flutter_test:
@@ -27,3 +28,4 @@ flutter:
 
   assets:
     - assets/
+

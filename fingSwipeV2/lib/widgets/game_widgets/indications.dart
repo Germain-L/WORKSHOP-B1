@@ -13,18 +13,31 @@ class _IndicationsState extends State<Indications> {
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
-    return Transform.scale(
-      scale: 5,
+    return Container(
+      width: 300,
+      height: 300,
+      decoration: BoxDecoration(
+        border: Border.all(width: 3),
+        borderRadius: BorderRadius.circular(25)
+      ),
+      padding: const EdgeInsets.all(8),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             game.currentWordDirection,
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 35, color: game.wordColor),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 40),
           Transform.rotate(
             angle: game.currentArrowDirection,
-            child: Icon(LineIcons.arrow_up),
+            child: Transform.scale(
+              scale: 4,
+              child: Icon(
+                LineIcons.long_arrow_up,
+                color: game.arrowColor,
+              ),
+            ),
           ),
         ],
       ),

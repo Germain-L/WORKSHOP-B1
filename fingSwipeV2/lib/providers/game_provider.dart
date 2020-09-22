@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Game with ChangeNotifier {
   final Random random = Random();
@@ -30,6 +31,9 @@ class Game with ChangeNotifier {
   String currentWordDirection = "Right";
   num currentArrowDirection = pi / 2;
 
+  Color arrowColor = Color(0xff62C980);
+  Color wordColor = Colors.black;
+
   Duration timeGivenToSwipe = Duration(milliseconds: 1000);
 
   void changeSwipeMode() {
@@ -55,12 +59,16 @@ class Game with ChangeNotifier {
       if (currentSwipeMode == swipeModes[0]) {
         //arrows
         currentArrowDirection = arrowDirections[absoluteDirection];
+
         currentWordDirection = wordDirections[random.nextInt(4)];
       } else if (currentSwipeMode == swipeModes[1]) {
         //text
         currentWordDirection = wordDirections[absoluteDirection];
+
         currentArrowDirection = arrowDirections[random.nextInt(4)];
       }
+
+      changeColor();
 
       notifyListeners();
       await Future.delayed(timeGivenToSwipe);
@@ -69,10 +77,20 @@ class Game with ChangeNotifier {
   }
 
   void check(int direction) {
-    if (currentSwipeMode == swipeModes[0]) {
-      if (direction == absoluteDirection)
-    } else if (currentSwipeMode == swipeModes[1]) {
+    if (direction == absoluteDirection) {
+      scoreUp();
+    }
+    notifyListeners();
+  }
 
+  void changeColor() {
+    bool ran = random.nextBool();
+    if (ran) {
+      arrowColor = Color(0xff62C980);
+      wordColor = Colors.black;
+    } else {
+      wordColor = Color(0xff62C980);
+      arrowColor = Colors.black;
     }
 
     notifyListeners();
