@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 class Game with ChangeNotifier {
   final Random random = Random();
 
+  bool isAlive = false;
+
   int score = 0;
+  int previousScore = 0;
 
   List swipeModes = ["Arrows!", "Text!"];
 
@@ -27,6 +30,9 @@ class Game with ChangeNotifier {
   int absoluteDirection = 0; //direction given with an index for the list
   int previousAbsoluteDirection = 0;
 
+  int absoluteWrongDirection = 0;
+  int previousWrongDirection = 0;
+
   String currentSwipeMode = "Arrows!";
   String currentWordDirection = "Right";
   num currentArrowDirection = pi / 2;
@@ -34,7 +40,25 @@ class Game with ChangeNotifier {
   Color arrowColor = Color(0xff62C980);
   Color wordColor = Colors.black;
 
-  Duration timeGivenToSwipe = Duration(milliseconds: 1000);
+  Duration timeGivenToSwipe = Duration(milliseconds: 500);
+
+
+  void runGame() async {
+    isAlive = true;
+    while (isAlive) {
+      changeDirection();
+      if (score % 5 == 0 && score > 1) {
+        changeSwipeMode();
+      }
+      if (score == previousScore) {
+        isAlive = false;
+      }
+
+      notifyListeners();
+      await Future.delayed(timeGivenToSwipe);
+    }
+    notifyListeners();
+  }
 
   void changeSwipeMode() {
     currentSwipeMode == swipeModes[0]
@@ -43,42 +67,37 @@ class Game with ChangeNotifier {
     notifyListeners();
   }
 
-  void scoreUp() {
-    score++;
-    notifyListeners();
-  }
+  void changeDirection() {
+    List allAbsDirs = [0, 1, 2, 3];
+    allAbsDirs.remove(previousAbsoluteDirection);
+    absoluteDirection = allAbsDirs[random.nextInt(3)];
 
-  void runGame() async {
-    while (true) {
-      List availableIndices = [0, 1, 2, 3];
+    List allWrongDirs = [0, 1, 2, 3];
+    allWrongDirs.remove(previousWrongDirection);
+    allWrongDirs.remove(absoluteDirection);
 
-      availableIndices.remove(previousAbsoluteDirection);
-      absoluteDirection = availableIndices[random.nextInt(3)];
+    absoluteWrongDirection = allWrongDirs[random.nextInt(2)];
 
+    if (swipeModes == swipeModes[0]) {
+      // in arrow mode, change arrow to correct dir and word to a wrong dir
+      currentArrowDirection = arrowDirections[absoluteDirection];
+      currentWordDirection = wordDirections[absoluteWrongDirection];
 
-      if (currentSwipeMode == swipeModes[0]) {
-        //arrows
-        currentArrowDirection = arrowDirections[absoluteDirection];
-
-        currentWordDirection = wordDirections[random.nextInt(4)];
-      } else if (currentSwipeMode == swipeModes[1]) {
-        //text
-        currentWordDirection = wordDirections[absoluteDirection];
-
-        currentArrowDirection = arrowDirections[random.nextInt(4)];
-      }
-
-      changeColor();
-
-      notifyListeners();
-      await Future.delayed(timeGivenToSwipe);
-      absoluteDirection = previousAbsoluteDirection;
+    } else if (swipeModes == swipeModes[1]) {
+      // in word mode, change word to correct dir and arrow to a wrong dir
+      currentWordDirection = wordDirections[absoluteDirection];
+      currentArrowDirection = arrowDirections[absoluteWrongDirection];
     }
+
+    previousAbsoluteDirection = absoluteDirection;
+    previousWrongDirection = absoluteWrongDirection;
   }
 
   void check(int direction) {
     if (direction == absoluteDirection) {
-      scoreUp();
+      score++;
+    } else {
+      isAlive = false;
     }
     notifyListeners();
   }
