@@ -12,72 +12,44 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  bool isStarted = false;
+  bool start = true;
 
-  String dir = "";
+  void startToFalse() {
+    setState(() => start = false);
+  }
 
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
 
-    if (!isStarted) {
+    if (start == true) {
       game.runGame();
-      setState(() {
-        isStarted = true;
-      });
+      startToFalse();
     }
 
     return SizedBox.expand(
       child: SimpleGestureDetector(
         swipeConfig: SimpleSwipeConfig(
-            horizontalThreshold: 0,
-            verticalThreshold: 0,
-            swipeDetectionBehavior: SwipeDetectionBehavior.singular),
+          horizontalThreshold: 0,
+          verticalThreshold: 0,
+          swipeDetectionBehavior: SwipeDetectionBehavior.singular,
+        ),
         onHorizontalSwipe: (SwipeDirection direction) {
           if (direction == SwipeDirection.right) {
-            print("Swipe Right");
-            setState(() {
-              dir = "Right";
-            });
+            game.check(1);
           }
           if (direction == SwipeDirection.left) {
-            print("Swipe Left");
-            setState(() {
-              dir = "Left";
-            });
+            game.check(3);
           }
         },
-
         onVerticalSwipe: (SwipeDirection direction) {
           if (direction == SwipeDirection.up) {
-            print("Swipe up");
-            setState(() {
-              dir = "Up";
-            });
+            game.check(0);
           }
           if (direction == SwipeDirection.down) {
-            print("Swipe down");
-            setState(() {
-              dir = "Down";
-            });
+            game.check(2);
           }
         },
-        // onSwipeUp: (){
-        //   print("Up");
-        //   game.check(0);
-        // },
-        // onSwipeRight: (){
-        //   print("Right");
-        //   game.check(1);
-        // },
-        // onSwipeDown: (){
-        //   print("Down");
-        //   game.check(2);
-        // },
-        // onSwipeLeft: (){
-        //   print("Left");
-        //   game.check(3);
-        // },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -88,15 +60,23 @@ class _GamePageState extends State<GamePage> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
+                  game.score.toString(),
+                  style: TextStyle(fontSize: 33),
+                ),
+                Text(
                   game.currentSwipeMode,
                   style: TextStyle(fontSize: 50, fontWeight: FontWeight.w700),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   "Swipe where indicated !",
                   style: TextStyle(fontSize: 20),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Indications(),
               ],
             ),
