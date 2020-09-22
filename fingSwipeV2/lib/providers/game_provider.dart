@@ -51,7 +51,6 @@ class Game with ChangeNotifier {
       availableIndices.remove(previousAbsoluteDirection);
       absoluteDirection = availableIndices[random.nextInt(3)];
 
-      absoluteDirection = previousAbsoluteDirection;
 
       if (currentSwipeMode == swipeModes[0]) {
         //arrows
@@ -65,12 +64,15 @@ class Game with ChangeNotifier {
 
       notifyListeners();
       await Future.delayed(timeGivenToSwipe);
+      absoluteDirection = previousAbsoluteDirection;
     }
   }
 
   void check(int direction) {
-    if (direction == absoluteDirection) {
-      score++;
+    if (currentSwipeMode == swipeModes[0]) {
+      if (direction == absoluteDirection)
+    } else if (currentSwipeMode == swipeModes[1]) {
+
     }
 
     notifyListeners();

@@ -26,24 +26,20 @@ class _GamePageState extends State<GamePage> {
 
     return SizedBox.expand(
       child: SwipeDetector(
-        onSwipeRight: (){
+        onSwipeUp: (){
           game.check(0);
         },
-        onSwipeDown: (){
+        onSwipeRight: (){
           game.check(1);
         },
-        onSwipeLeft: (){
+        onSwipeDown: (){
           game.check(2);
         },
-        onSwipeUp: (){
+        onSwipeLeft: (){
           game.check(3);
         },
         child: Stack(
           children: [
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Text(game.score.toString()),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
@@ -62,6 +58,10 @@ class _GamePageState extends State<GamePage> {
                   ],
                 ),
               ],
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(game.score.toString()),
             ),
           ],
         ),
