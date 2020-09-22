@@ -20,7 +20,6 @@ class App extends StatelessWidget {
           appBar: CustomAppBar(),
           body: pages.elementAt(nav.currentPage),
         ),
-        nav.currentBg,
       ],
     );
   }
