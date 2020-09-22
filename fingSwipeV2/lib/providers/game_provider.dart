@@ -43,10 +43,9 @@ class Game with ChangeNotifier {
   Duration timeGivenToSwipe = Duration(milliseconds: 2000);
 
   void runGame() async {
-    int test = 0;
     while (isAlive) {
-      print("run n° $test");
-      changeDirectionV2();
+      changeDirectionV1();
+      
       changeColor();
 
       if (score % 5 == 0 && score > 1) {
@@ -59,7 +58,6 @@ class Game with ChangeNotifier {
 
       notifyListeners();
       await Future.delayed(timeGivenToSwipe);
-      test++;
     }
   }
 
@@ -69,7 +67,7 @@ class Game with ChangeNotifier {
         : currentSwipeMode = swipeModes[0];
   }
 
-  void changeDirectionV2() {
+  void changeDirectionV1() {
     List availableIndices = [0, 1, 2, 3];
 
     availableIndices.remove(previousAbsoluteDirection);
@@ -88,7 +86,7 @@ class Game with ChangeNotifier {
     }
   }
 
-  void changeDirection() {
+  void changeDirectionV2() {
     List allAbsDirs = [0, 1, 2, 3];
     allAbsDirs.remove(previousAbsoluteDirection);
     absoluteDirection = allAbsDirs[random.nextInt(3)];

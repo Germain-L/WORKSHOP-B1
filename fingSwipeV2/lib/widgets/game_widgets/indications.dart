@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:line_icons/line_icons.dart';
@@ -25,7 +27,7 @@ class _IndicationsState extends State<Indications> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Transform.rotate(
-            angle: game.currentArrowDirection,
+            angle: game.currentArrowDirection - (pi / 2),
             child: SvgPicture.asset(
               'assets/arrow.svg',
               fit: BoxFit.scaleDown,
