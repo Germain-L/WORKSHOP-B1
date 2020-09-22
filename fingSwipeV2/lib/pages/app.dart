@@ -1,10 +1,9 @@
-import 'package:fingSwipeV2/pages/game.dart';
-import 'package:fingSwipeV2/widgets/core_widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/game_provider.dart';
 import '../providers/navigation_provider.dart';
+import '../widgets/core_widgets/appbar.dart';
+import 'game.dart';
 import 'menu.dart';
 
 class App extends StatelessWidget {

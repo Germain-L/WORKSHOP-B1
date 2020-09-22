@@ -1,8 +1,9 @@
-import 'package:fingSwipeV2/pages/app.dart';
-import 'package:fingSwipeV2/providers/game_provider.dart';
-import 'package:fingSwipeV2/providers/navigation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'pages/app.dart';
+import 'providers/game_provider.dart';
+import 'providers/navigation_provider.dart';
 
 void main() {
   runApp(

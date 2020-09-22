@@ -5,22 +5,22 @@ import 'package:flutter/cupertino.dart';
 class Game with ChangeNotifier {
   final Random random = Random();
 
-  int score;
+  int score = 0;
 
   List swipeModes = ["Arrows!", "Text!"];
 
-  List arrowDirections = [
-    0, //right
-    (3 * pi) / 2, //bottom
-    pi, //left
-    pi / 2, // top
+  List<double> arrowDirections = [
+    (0 * pi / 180).toDouble(), //top
+    (90 * pi / 180).toDouble(), //right
+    (180 * pi / 180).toDouble(), //bottom
+    (270 * pi / 180).toDouble(), // left
   ];
 
-  List wordDirection = [
+  List<String> wordDirections = [
+    "Top",
     "Right",
     "Bottom",
     "Left",
-    "Top",
   ];
 
   int absoluteDirection = 0; //direction given with an index for the list
@@ -28,9 +28,9 @@ class Game with ChangeNotifier {
 
   String currentSwipeMode = "Arrows!";
   String currentWordDirection = "Right";
-  num currentArrowDirection = pi;
+  num currentArrowDirection = pi / 2;
 
-  Duration timeGivenToSwipe = Duration(milliseconds: 3000);
+  Duration timeGivenToSwipe = Duration(milliseconds: 1000);
 
   void changeSwipeMode() {
     currentSwipeMode == swipeModes[0]
@@ -50,9 +50,29 @@ class Game with ChangeNotifier {
 
       availableIndices.remove(previousAbsoluteDirection);
       absoluteDirection = availableIndices[random.nextInt(3)];
-      
-      await Future.delayed(timeGivenToSwipe);
+
       absoluteDirection = previousAbsoluteDirection;
+
+      if (currentSwipeMode == swipeModes[0]) {
+        //arrows
+        currentArrowDirection = arrowDirections[absoluteDirection];
+        currentWordDirection = wordDirections[random.nextInt(4)];
+      } else if (currentSwipeMode == swipeModes[1]) {
+        //text
+        currentWordDirection = wordDirections[absoluteDirection];
+        currentArrowDirection = arrowDirections[random.nextInt(4)];
+      }
+
+      notifyListeners();
+      await Future.delayed(timeGivenToSwipe);
     }
+  }
+
+  void check(int direction) {
+    if (direction == absoluteDirection) {
+      score++;
+    }
+
+    notifyListeners();
   }
 }

@@ -1,7 +1,8 @@
-import 'package:fingSwipeV2/providers/navigation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/navigation_provider.dart';
 
 class MenuPage extends StatelessWidget {
   @override

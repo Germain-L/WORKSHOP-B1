@@ -1,33 +1,70 @@
-import 'package:fingSwipeV2/providers/game_provider.dart';
-import 'package:fingSwipeV2/widgets/game_widgets/indications.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:swipedetector/swipedetector.dart';
 
-class GamePage extends StatelessWidget {
+import '../providers/game_provider.dart';
+import '../widgets/game_widgets/indications.dart';
+
+class GamePage extends StatefulWidget {
+  @override
+  _GamePageState createState() => _GamePageState();
+}
+
+class _GamePageState extends State<GamePage> {
+  bool isStarted = false;
+
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                game.currentSwipeMode,
-                style: TextStyle(fontSize: 50, fontWeight: FontWeight.w700),
-              ),
-              SizedBox(height: 200),
-              Indications(),
-            ],
-          ),
-        ],
+
+    if (!isStarted) {
+      game.runGame();
+      setState(() {
+        isStarted = true;
+      });
+    }
+
+    return SizedBox.expand(
+      child: SwipeDetector(
+        onSwipeRight: (){
+          game.check(0);
+        },
+        onSwipeDown: (){
+          game.check(1);
+        },
+        onSwipeLeft: (){
+          game.check(2);
+        },
+        onSwipeUp: (){
+          game.check(3);
+        },
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(game.score.toString()),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      game.currentSwipeMode,
+                      style: TextStyle(fontSize: 50, fontWeight: FontWeight.w700),
+                    ),
+                    SizedBox(height: 200),
+                    Indications(),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

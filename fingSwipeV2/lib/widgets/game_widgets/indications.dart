@@ -1,15 +1,15 @@
-import 'package:fingSwipeV2/providers/game_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
+
+import '../../providers/game_provider.dart';
 
 class Indications extends StatefulWidget {
   @override
   _IndicationsState createState() => _IndicationsState();
 }
 
-class _IndicationsState extends State<Indications>
-    with SingleTickerProviderStateMixin {
+class _IndicationsState extends State<Indications> {
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
