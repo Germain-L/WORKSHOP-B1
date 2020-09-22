@@ -14,17 +14,17 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   bool start = true;
 
-  String dir = "";
+  void startToFalse() {
+    setState(() => start = false);
+  }
 
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
 
-    if (start) {
+    if (start == true) {
       game.runGame();
-      setState(() {
-        start = false;
-      });
+      startToFalse();
     }
 
     return SizedBox.expand(
@@ -59,6 +59,10 @@ class _GamePageState extends State<GamePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
+                Text(
+                  game.score.toString(),
+                  style: TextStyle(fontSize: 33),
+                ),
                 Text(
                   game.currentSwipeMode,
                   style: TextStyle(fontSize: 50, fontWeight: FontWeight.w700),

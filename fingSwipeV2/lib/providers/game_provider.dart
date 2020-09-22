@@ -8,16 +8,16 @@ class Game with ChangeNotifier {
 
   bool isAlive = true;
 
-  int score = 0;
+  int score = 1;
   int previousScore = 0;
 
   List swipeModes = ["Arrows!", "Text!"];
 
   List<double> arrowDirections = [
-    (0 * pi / 180).toDouble(), //top
-    (90 * pi / 180).toDouble(), //right
-    (180 * pi / 180).toDouble(), //bottom
-    (270 * pi / 180).toDouble(), // left
+    0.toDouble(),
+    (pi / 2).toDouble(),
+    (pi).toDouble(),
+    ((3 * pi) / 2).toDouble(),
   ];
 
   List<String> wordDirections = [
@@ -40,24 +40,27 @@ class Game with ChangeNotifier {
   Color arrowColor = Color(0xff62C980);
   Color wordColor = Colors.black;
 
-  Duration timeGivenToSwipe = Duration(milliseconds: 500);
+  Duration timeGivenToSwipe = Duration(milliseconds: 2000);
 
   void runGame() async {
+    int test = 0;
     while (isAlive) {
-      changeDirection();
+      print("run n° $test");
+      changeDirectionV2();
+      changeColor();
+
       if (score % 5 == 0 && score > 1) {
         changeSwipeMode();
       }
+
       if (score == previousScore) {
         isAlive = false;
       }
 
+      notifyListeners();
       await Future.delayed(timeGivenToSwipe);
-      previousAbsoluteDirection = absoluteDirection;
-      previousWrongDirection = absoluteWrongDirection;
+      test++;
     }
-
-    notifyListeners();
   }
 
   void changeSwipeMode() {
@@ -66,14 +69,33 @@ class Game with ChangeNotifier {
         : currentSwipeMode = swipeModes[0];
   }
 
+  void changeDirectionV2() {
+    List availableIndices = [0, 1, 2, 3];
+
+    availableIndices.remove(previousAbsoluteDirection);
+    absoluteDirection = availableIndices[random.nextInt(3)];
+
+    if (currentSwipeMode == swipeModes[0]) {
+      //arrows
+      currentArrowDirection = arrowDirections[absoluteDirection];
+
+      currentWordDirection = wordDirections[random.nextInt(4)];
+    } else if (currentSwipeMode == swipeModes[1]) {
+      //text
+      currentWordDirection = wordDirections[absoluteDirection];
+
+      currentArrowDirection = arrowDirections[random.nextInt(4)];
+    }
+  }
+
   void changeDirection() {
     List allAbsDirs = [0, 1, 2, 3];
     allAbsDirs.remove(previousAbsoluteDirection);
     absoluteDirection = allAbsDirs[random.nextInt(3)];
 
     List allWrongDirs = [0, 1, 2, 3];
-    allWrongDirs.remove(previousWrongDirection);
-    allWrongDirs.remove(absoluteDirection);
+    allWrongDirs.remove(previousWrongDirection); // 1
+    allWrongDirs.remove(absoluteDirection); // 0
 
     absoluteWrongDirection = allWrongDirs[random.nextInt(2)];
 
@@ -86,15 +108,19 @@ class Game with ChangeNotifier {
       currentWordDirection = wordDirections[absoluteDirection];
       currentArrowDirection = arrowDirections[absoluteWrongDirection];
     }
+
+    previousAbsoluteDirection = absoluteDirection;
+    previousWrongDirection = absoluteWrongDirection;
   }
 
   void check(int direction) {
+    print("$direction == $absoluteDirection");
     if (direction == absoluteDirection) {
+      previousScore = score;
       score++;
     } else {
-      isAlive = false;
+      // isAlive = false;
     }
-    notifyListeners();
   }
 
   void changeColor() {
@@ -106,7 +132,5 @@ class Game with ChangeNotifier {
       wordColor = Color(0xff62C980);
       arrowColor = Colors.black;
     }
-
-    notifyListeners();
   }
 }
