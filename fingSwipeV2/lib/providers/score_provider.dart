@@ -12,7 +12,12 @@ class Score with ChangeNotifier {
            "score": score
          }
     );
-    print(result.body);
+  }
+
+  void getAll() {
+    var result = http.get(
+        "https://fingswipe.app/api/getAll",
+    );
   }
 
 }

@@ -1,3 +1,4 @@
+import 'package:fingSwipeV2/providers/navigation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
@@ -21,11 +22,17 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
+    final nav = Provider.of<Nav>(context);
+
+    if (game.finished == true) {
+      nav.changePage(2);
+    }
 
     if (start == true) {
       game.runGame();
       startToFalse();
     }
+
 
     return SizedBox.expand(
       child: SimpleGestureDetector(
