@@ -23,6 +23,9 @@ class _GamePageState extends State<GamePage> {
 
     if (game.finished == true) {
       Navigator.pushNamedAndRemoveUntil(context, 'normalEnd', (Route<dynamic> route) => false);
+      setState(() {
+        start = true;
+      });
     }
 
     if (start == true) {
