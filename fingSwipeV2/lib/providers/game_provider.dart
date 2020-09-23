@@ -46,6 +46,13 @@ class Game with ChangeNotifier {
   Duration timeGivenToSwipe = Duration(milliseconds: 2000);
 
   void runGame() async {
+
+    isAlive = true;
+    finished = false;
+
+    score = 1;
+    previousScore = 0;
+
     while (isAlive) {
 
       changeDirectionV1();
