@@ -15,31 +15,41 @@ class Indications extends StatefulWidget {
 }
 
 class _IndicationsState extends State<Indications> {
+
   int progress_value = 0;
+  bool run = true;
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     Timer.periodic(Duration(milliseconds: 1), (Timer timer) {
-      setState(() {
-        if (progress_value == 1000) progress_value = 0;
-        progress_value++;
+      if (!this.run) timer.cancel();
+      else setState(() {
+        if (this.progress_value == 2000) this.progress_value = 0;
+        this.progress_value++;
       });
-    });
+    }); 
+    super.initState();
+  }
+
+  @override
+  void deactivate() {
+    this.run = false;
+    super.deactivate();
   }
 
   @override
   Widget build(BuildContext context) {
+
     final game = Provider.of<Game>(context);
+
+    if (game.score_old != game.score)
+    {
+      this.progress_value = 0;
+      game.score_old = game.score;
+    }
 
     double _anw = 0.0;
     double _anh = 0.0;
-
-    if (game.win) {
-      _anw = 300.0;
-      _anh = 300.0;
-    }
 
     return Container(
       width: 300,
@@ -76,21 +86,19 @@ class _IndicationsState extends State<Indications> {
                   duration: Duration(milliseconds: 1),
                   curve: Curves.fastOutSlowIn,
                 ),
-                if (!game.win)
-                  Transform.rotate(
-                    angle: game.currentArrowDirection - (pi / 2),
-                    child: SvgPicture.asset(
-                      'assets/arrow.svg',
-                      fit: BoxFit.scaleDown,
-                      height: 100,
-                      color: game.arrowColor,
-                    ),
+                Transform.rotate(
+                  angle: game.getArrowDirection() - (pi / 2),
+                  child: SvgPicture.asset(
+                    'assets/arrow.svg',
+                    fit: BoxFit.scaleDown,
+                    height: 100,
+                    color: game.getArrowColor(),
                   ),
-                if (!game.win) SizedBox(height: 10),
-                if (!game.win)
+                ),
+                SizedBox(height: 10),
                   Text(
-                    game.currentWordDirection,
-                    style: TextStyle(fontSize: 35, color: game.wordColor),
+                    game.getWordDirection(),
+                    style: TextStyle(fontSize: 35, color: game.getWordColor()),
                   ),
               ],
             ),

@@ -102,7 +102,6 @@ class _NormalEndState extends State<NormalEnd> {
                   ),
                 ],
               ),
-            ),
             Container(
                 margin: EdgeInsets.only(top: 50.0),
                 child: FlatButton(
