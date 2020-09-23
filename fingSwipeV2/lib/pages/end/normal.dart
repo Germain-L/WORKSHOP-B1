@@ -75,8 +75,8 @@ class _NormalEndState extends State<NormalEnd> {
                   ),
                 ],
               ),
-            ),
-            Container(
+            ), 
+            Container (
               padding: const EdgeInsets.all(25.0),
               margin: const EdgeInsets.only(top: 35.0),
               decoration: BoxDecoration(
@@ -102,6 +102,7 @@ class _NormalEndState extends State<NormalEnd> {
                   ),
                 ],
               ),
+            ),
             Container(
                 margin: EdgeInsets.only(top: 50.0),
                 child: FlatButton(
