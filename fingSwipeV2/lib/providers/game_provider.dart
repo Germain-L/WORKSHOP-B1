@@ -2,11 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/navigation_provider.dart';
 
 class Game with ChangeNotifier {
   final Random random = Random();
 
   bool isAlive = true;
+  bool finished = false;
 
   int score = 1;
   int previousScore = 0;
@@ -109,7 +112,7 @@ class Game with ChangeNotifier {
 
     previousAbsoluteDirection = absoluteDirection;
     previousWrongDirection = absoluteWrongDirection;
-  }
+        }
 
   void check(int direction) {
     print("$direction == $absoluteDirection");
@@ -117,7 +120,7 @@ class Game with ChangeNotifier {
       previousScore = score;
       score++;
     } else {
-      // isAlive = false;
+      this.end();
     }
   }
 
@@ -130,5 +133,14 @@ class Game with ChangeNotifier {
       wordColor = Color(0xff62C980);
       arrowColor = Colors.black;
     }
+  }
+
+  int getScore() { return score; }
+
+  void end()
+  {
+    finished = true;
+    isAlive = false;
+    notifyListeners();
   }
 }
