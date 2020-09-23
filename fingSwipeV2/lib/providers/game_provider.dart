@@ -44,6 +44,7 @@ class Game with ChangeNotifier {
 
   void runGame() async {
     while (isAlive) {
+
       changeDirectionV1();
       
       changeColor();
