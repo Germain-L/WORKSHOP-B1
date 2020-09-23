@@ -33,6 +33,7 @@ class _NormalEndState extends State<NormalEnd> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(),
       body: SizedBox.expand(
         child: Center(
@@ -117,15 +118,31 @@ class _NormalEndState extends State<NormalEnd> {
                       bottom: 15.0, top: 15.0, left: 25.0, right: 25.0),
                   splashColor: Color(0xFFEDEDED),
                   onPressed: () {
-                    SimpleDialog(
-                      elevation: 10,
-                      children: [
-                        TextField(),
-                        FlatButton(
-                          onPressed: () {},
-                          child: Text('Save'),
-                        ),
-                      ],
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        TextEditingController nameController =
+                            TextEditingController();
+                        return AlertDialog(
+                          title: Text("Enter name:"),
+                          content: TextField(
+                            autocorrect: true,
+                            autofocus: true,
+                            decoration: InputDecoration(
+                              hintText: "Name",
+                            ),
+                          ),
+                          actions: [
+                            FlatButton(
+                              onPressed: () {
+                                score.store(nameController.text, game.score);
+                                Navigator.pop(context);
+                              },
+                              child: Text('Submit'),
+                            )
+                          ],
+                        );
+                      },
                     );
                   },
                   child: Text(
