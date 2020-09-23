@@ -30,12 +30,6 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => Game(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => LocalScoreProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => Score(),
-        )
       ],
       child: MaterialApp(
         routes: {

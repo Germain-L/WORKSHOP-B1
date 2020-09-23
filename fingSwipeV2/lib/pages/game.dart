@@ -12,6 +12,7 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
