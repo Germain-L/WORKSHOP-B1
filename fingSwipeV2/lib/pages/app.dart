@@ -8,19 +8,15 @@ import 'menu.dart';
 import 'end/normal.dart';
 
 class App extends StatelessWidget {
-  final List<Widget> pages = [
-    MenuPage(),
-    GamePage(),
-    NormalEnd(),
-  ];
+
   @override
   Widget build(BuildContext context) {
-    final nav = Provider.of<Nav>(context);
+    
     return Stack(
       children: [
         Scaffold(
           appBar: CustomAppBar(),
-          body: pages.elementAt(nav.currentPage),
+          // body: pages.elementAt(nav.currentPage),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:fingSwipeV2/providers/game_provider.dart';
+import 'package:fingSwipeV2/widgets/core_widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,7 @@ class NormalEnd extends StatelessWidget {
   Widget build(BuildContext context) {
 
     var game = Provider.of<Game>(context);
-
+    
     return SizedBox.expand(
       child: Center(
         child: Column(

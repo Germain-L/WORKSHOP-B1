@@ -54,6 +54,7 @@ class Game with ChangeNotifier {
     previousScore = 0;
 
     while (isAlive) {
+
       changeDirectionV1();
       
       changeColor();
