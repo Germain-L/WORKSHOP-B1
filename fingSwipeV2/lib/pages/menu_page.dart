@@ -1,9 +1,8 @@
-import 'package:fingSwipeV2/providers/game_provider.dart';
-import 'package:fingSwipeV2/widgets/core_widgets/appbar.dart';
-import 'package:fingSwipeV2/widgets/menu_widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:line_icons/line_icons.dart';
+
+import '../widgets/core_widgets/appbar.dart';
+import '../widgets/menu_widgets/buttons.dart';
 
 class MenuPage extends StatelessWidget {
   @override

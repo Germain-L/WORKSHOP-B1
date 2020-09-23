@@ -1,19 +1,14 @@
 
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
-
-import 'models/leaderboard_score.dart';
-import 'pages/leaderboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'pages/app.dart';
-import 'pages/end/normal.dart';
-import 'pages/game.dart';
-import 'pages/menu.dart';
+import 'pages/end_game_page.dart';
+import 'pages/game_page.dart';
+import 'pages/leaderboard_page.dart';
+import 'pages/menu_page.dart';
 import 'providers/game_provider.dart';
-import 'providers/local_cache_provider.dart';
-import 'providers/score_provider.dart';
 
 
 AudioPlayer audioPlayer = new AudioPlayer();

@@ -1,15 +1,15 @@
-import 'package:fingSwipeV2/models/leaderboard_score.dart';
-import 'package:fingSwipeV2/providers/score_provider.dart';
-import 'package:fingSwipeV2/widgets/core_widgets/appbar.dart';
-import 'package:fingSwipeV2/widgets/leaderboard/score_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:provider/provider.dart';
+
+import '../models/leaderboard_score.dart';
+import '../models/score_provider.dart';
+import '../widgets/core_widgets/appbar.dart';
+import '../widgets/leaderboard/score_widget.dart';
 
 class LeaderboardPage extends StatelessWidget {
+  final Score score = Score();
   @override
   Widget build(BuildContext context) {
-    final score = Provider.of<Score>(context);
     return Scaffold(
       appBar: CustomAppBar(),
       floatingActionButton: FloatingActionButton.extended(

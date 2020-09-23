@@ -1,12 +1,24 @@
 import 'dart:convert';
 
-import 'package:fingSwipeV2/models/leaderboard_score.dart';
 import 'package:http/http.dart' as http;
+
+import 'leaderboard_score.dart';
 
 class Score {
   void store(String username, int score) async {
-    var result = await http.post("https://fingswipe.app/api/score",
-        body: {"username": username, "score": score});
+    print("$username, $score");
+    
+    Map body = Map.from({
+      'username': username,
+      'score': score.toString(),
+    });
+
+    var result = await http.post(
+      "https://fingswipe.app/api/score",
+      body: body,
+    );
+
+    print(result.statusCode);
   }
 
   Future<List<LeaderboardScore>> getAll() async {
