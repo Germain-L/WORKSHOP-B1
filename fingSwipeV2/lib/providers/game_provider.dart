@@ -43,7 +43,7 @@ class Game with ChangeNotifier {
   Color arrowColor = Color(0xff62C980);
   Color wordColor = Colors.black;
 
-  Duration timeGivenToSwipe = Duration(milliseconds: 2000);
+  Duration timeGivenToSwipe = Duration(seconds: 2);
 
   void runGame() async {
 
