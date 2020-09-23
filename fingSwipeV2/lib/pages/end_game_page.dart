@@ -36,7 +36,7 @@ class _NormalEndState extends State<NormalEnd> {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(),
       body: SizedBox.expand(
         child: Center(
