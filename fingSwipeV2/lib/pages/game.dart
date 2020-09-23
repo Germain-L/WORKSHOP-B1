@@ -14,17 +14,16 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   bool start = true;
 
-
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
-    
 
     if (game.finished == true) {
-      Navigator.pushNamedAndRemoveUntil(context, 'normalEnd', (Route<dynamic> route) => false);
-      setState(() {
-        start = true;
-      });
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        'normalEnd',
+        (Route<dynamic> route) => false,
+      );
     }
 
     if (start == true) {
@@ -33,74 +32,76 @@ class _GamePageState extends State<GamePage> {
     }
 
     return Stack(
-        children: <Widget>[
-          Image.asset(
-            "assets/bg2.png",
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-          ),
-    Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: CustomAppBar(),
-      body: SizedBox.expand(
-        child: SimpleGestureDetector(
-          swipeConfig: SimpleSwipeConfig(
-            horizontalThreshold: 0,
-            verticalThreshold: 0,
-            swipeDetectionBehavior: SwipeDetectionBehavior.singular,
-          ),
-          onHorizontalSwipe: (SwipeDirection direction) {
-            if (direction == SwipeDirection.right) {
-              game.check(1);
-            }
-            if (direction == SwipeDirection.left) {
-              game.check(3);
-            }
-          },
-          onVerticalSwipe: (SwipeDirection direction) {
-            if (direction == SwipeDirection.up) {
-              game.check(0);
-            }
-            if (direction == SwipeDirection.down) {
-              game.check(2);
-            }
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Column(
+      children: <Widget>[
+        Image.asset(
+          "assets/bg2.png",
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: CustomAppBar(),
+          body: SizedBox.expand(
+            child: SimpleGestureDetector(
+              swipeConfig: SimpleSwipeConfig(
+                horizontalThreshold: 0,
+                verticalThreshold: 0,
+                swipeDetectionBehavior: SwipeDetectionBehavior.singular,
+              ),
+              onHorizontalSwipe: (SwipeDirection direction) {
+                if (direction == SwipeDirection.right) {
+                  game.check(1);
+                }
+                if (direction == SwipeDirection.left) {
+                  game.check(3);
+                }
+              },
+              onVerticalSwipe: (SwipeDirection direction) {
+                if (direction == SwipeDirection.up) {
+                  game.check(0);
+                }
+                if (direction == SwipeDirection.down) {
+                  game.check(2);
+                }
+              },
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text(
-                    game.score.toString(),
-                    style: TextStyle(fontSize: 33),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        game.score.toString(),
+                        style: TextStyle(fontSize: 33),
+                      ),
+                      Text(
+                        game.currentSwipeMode,
+                        style: TextStyle(
+                            fontSize: 50, fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Swipe where indicated !",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Indications(),
+                    ],
                   ),
-                  Text(
-                    game.currentSwipeMode,
-                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.w700),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Swipe where indicated !",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Indications(),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-    )
-    ]);
+        )
+      ],
+    );
   }
 }
