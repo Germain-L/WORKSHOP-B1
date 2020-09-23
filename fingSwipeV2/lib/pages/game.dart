@@ -1,4 +1,3 @@
-import 'package:fingSwipeV2/providers/navigation_provider.dart';
 import 'package:fingSwipeV2/widgets/core_widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +15,6 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   bool start = true;
 
-  void startToFalse() {
-    setState(() => start = false);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +22,12 @@ class _GamePageState extends State<GamePage> {
     
 
     if (game.finished == true) {
-      Navigator.pushNamed(context, 'normalEnd');
+      Navigator.pushNamedAndRemoveUntil(context, 'normalEnd', (Route<dynamic> route) => false);
     }
 
     if (start == true) {
       game.runGame();
-      startToFalse();
+      setState(() => start = false);
     }
 
 

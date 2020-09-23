@@ -1,5 +1,4 @@
 import 'package:fingSwipeV2/providers/game_provider.dart';
-import 'package:fingSwipeV2/providers/navigation_provider.dart';
 import 'package:fingSwipeV2/widgets/core_widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,6 @@ class NormalEnd extends StatelessWidget {
   Widget build(BuildContext context) {
 
     var game = Provider.of<Game>(context);
-    final nav = Provider.of<Nav>(context);
     
     return Scaffold(
       appBar: CustomAppBar(),
@@ -109,7 +107,7 @@ class NormalEnd extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 15.0, top: 15.0, left: 25.0, right: 25.0),
                     splashColor: Color(0xFF1F1F1F),
                     onPressed: () {
-                      nav.changePage(0);
+                      Navigator.pushNamedAndRemoveUntil(context, 'menu', (route) => false);
                     },
                     child: Text(
                       "Play Again",
