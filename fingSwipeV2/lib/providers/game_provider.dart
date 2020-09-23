@@ -1,21 +1,22 @@
+import 'dart:async';
 import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
+import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/cupertino.dart';
 
 class Game with ChangeNotifier {
-  final Random random = Random();
 
-  bool isAlive = true;
-  bool finished = false;
-  bool win = false;
+  final Random _random = Random();
 
-  int score = 1;
-  int previousScore = 0;
+  bool run = false;
+  bool engine = false;
+  int score = 0;
+  int score_old = -1;
 
-  List swipeModes = ["Arrows!", "Text!"];
+  Timer timer = null;
 
+  List swipeModes = ["Arrows !", "Text !"];
   List<double> arrowDirections = [
     0.toDouble(),
     (pi / 2).toDouble(),
@@ -30,128 +31,147 @@ class Game with ChangeNotifier {
     "Left",
   ];
 
-  int absoluteDirection = 0; //direction given with an index for the list
-  int previousAbsoluteDirection = 0;
+  int progress_value = 0;
+  int swipe_mode = 0;
+  int direction = 0;
+  int direction_arrow = 0;
+  int direction_word = 0;
+  int direction_previous = 0;
 
-  int absoluteWrongDirection = 0;
-  int previousWrongDirection = 0;
+  Color green = Color(0xff62C980);
+  Color black = Colors.black;
 
-  String currentSwipeMode = "Arrows!";
-  String currentWordDirection = "Right";
-  num currentArrowDirection = pi / 2;
+  Color color_arrow = Colors.black;
+  Color color_word = Colors.black;
+  
+  Duration time = Duration(seconds: 2);
 
-  Color arrowColor = Color(0xff62C980);
-  Color wordColor = Colors.black;
-
-  Duration timeGivenToSwipe = Duration(seconds: 2);
-
-  void runGame() async {
-
-    isAlive = true;
-    finished = false;
-
-    score = 1;
-    previousScore = 0;
-
-    while (isAlive) {
-
-      win = false;
-      changeDirectionV1();
-      
-      changeColor();
-
-      if (score % 5 == 0 && score > 1) {
-        changeSwipeMode();
-      }
-
-      if (score == previousScore) {
-        isAlive = false;
-      }
-
-      notifyListeners();
-      await Future.delayed(timeGivenToSwipe);
-    }
-  }
-
-  void changeSwipeMode() {
-    currentSwipeMode == swipeModes[0]
-        ? currentSwipeMode = swipeModes[1]
-        : currentSwipeMode = swipeModes[0];
-  }
-
-  void changeDirectionV1() {
-    List availableIndices = [0, 1, 2, 3];
-
-    availableIndices.remove(previousAbsoluteDirection);
-    absoluteDirection = availableIndices[random.nextInt(3)];
-
-    if (currentSwipeMode == swipeModes[0]) {
-      //arrows
-      currentArrowDirection = arrowDirections[absoluteDirection];
-
-      currentWordDirection = wordDirections[random.nextInt(4)];
-    } else if (currentSwipeMode == swipeModes[1]) {
-      //text
-      currentWordDirection = wordDirections[absoluteDirection];
-
-      currentArrowDirection = arrowDirections[random.nextInt(4)];
-    }
-  }
-
-  void changeDirectionV2() {
-    List allAbsDirs = [0, 1, 2, 3];
-    allAbsDirs.remove(previousAbsoluteDirection);
-    absoluteDirection = allAbsDirs[random.nextInt(3)];
-
-    List allWrongDirs = [0, 1, 2, 3];
-    allWrongDirs.remove(previousWrongDirection); // 1
-    allWrongDirs.remove(absoluteDirection); // 0
-
-    absoluteWrongDirection = allWrongDirs[random.nextInt(2)];
-
-    if (swipeModes == swipeModes[0]) {
-      // in arrow mode, change arrow to correct dir and word to a wrong dir
-      currentArrowDirection = arrowDirections[absoluteDirection];
-      currentWordDirection = wordDirections[absoluteWrongDirection];
-    } else if (swipeModes == swipeModes[1]) {
-      // in word mode, change word to correct dir and arrow to a wrong dir
-      currentWordDirection = wordDirections[absoluteDirection];
-      currentArrowDirection = arrowDirections[absoluteWrongDirection];
-    }
-
-    previousAbsoluteDirection = absoluteDirection;
-    previousWrongDirection = absoluteWrongDirection;
-        }
-
-  void check(int direction) {
-    print("$direction == $absoluteDirection");
-    if (direction == absoluteDirection) {
-      previousScore = score;
-      score++;
-      win = true;
-      notifyListeners();
-    } else {
-      this.end();
-    }
-  }
-
-  void changeColor() {
-    bool ran = random.nextBool();
-    if (ran) {
-      arrowColor = Color(0xff62C980);
-      wordColor = Colors.black;
-    } else {
-      wordColor = Color(0xff62C980);
-      arrowColor = Colors.black;
-    }
-  }
-
-  int getScore() { return score; }
-
-  void end()
+  void initialize()
   {
-    finished = true;
-    isAlive = false;
-    notifyListeners();
+    this.score = 0;
+    this.run = true;
+    this.engine = true;
+    this.runGame();
   }
+
+  void runGame()
+  {
+      this.direction = randomDirection(false);
+      this.swipe_mode = randomSwipe();
+
+      switch (this.swipe_mode) {
+        case 0:
+          this.direction_arrow = this.direction;
+          this.direction_word = randomDirection(true);
+          break;
+        case 1:
+          this.direction_arrow = randomDirection(true);
+          this.direction_word = this.direction;
+          break;
+      }
+
+      switch (randomColor()) {
+        case 0:
+          this.color_arrow = this.green;
+          this.color_word = this.black;
+          break;
+        case 1:
+          this.color_arrow = this.black;
+          this.color_word = this.green;
+          break;
+      }
+
+      this.delay();
+  }
+
+  void restartGame()
+  {
+      this.direction = randomDirection(false);
+      this.swipe_mode = randomSwipe();
+
+      switch (this.swipe_mode) {
+        case 0:
+          this.direction_arrow = this.direction;
+          this.direction_word = randomDirection(true);
+          break;
+        case 1:
+          this.direction_arrow = randomDirection(true);
+          this.direction_word = this.direction;
+          break;
+      }
+
+      switch (randomColor()) {
+        case 0:
+          this.color_arrow = this.green;
+          this.color_word = this.black;
+          break;
+        case 1:
+          this.color_arrow = this.black;
+          this.color_word = this.green;
+          break;
+      }
+
+      notifyListeners();
+      this.delay();
+  }
+
+  int randomDirection(bool allowPrevious)
+  {
+    List directions = [0, 1, 2, 3];
+    if (!allowPrevious) directions.remove(direction_previous);
+
+    return directions[_random.nextInt(3)];
+  }
+
+  int randomSwipe()
+  {
+    return _random.nextInt(2);
+  }
+
+  int randomColor()
+  {
+    return _random.nextInt(2);
+  }
+
+  void check(int swipe_direction)
+  {
+    if (swipe_direction == this.direction)
+    {
+      this.direction_previous = this.direction;
+      this.score++;
+      this.timer.cancel();
+      this.restartGame();
+    } 
+    else
+    {
+      this.stopGame();
+    }
+  }
+
+  void stopGame()
+  {
+      this.run = false;
+      this.timer.cancel();
+      notifyListeners();
+  }
+
+  void resetEngine()
+  {
+    this.engine = false;
+  }
+
+  void delay()
+  {
+    this.timer = Timer(this.time, () {
+      this.stopGame();
+    });
+  }
+
+  String getSwipeMode() { return this.swipeModes[this.swipe_mode]; }
+
+  double getArrowDirection() { return this.arrowDirections[this.direction_arrow]; }
+  String getWordDirection() { return this.wordDirections[this.direction_word]; }
+
+  Color getArrowColor() { return this.color_arrow; }
+  Color getWordColor() { return this.color_word; }
 }

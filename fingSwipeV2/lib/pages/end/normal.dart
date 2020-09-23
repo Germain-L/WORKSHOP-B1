@@ -113,7 +113,7 @@ class _NormalEndState extends State<NormalEnd> {
                     padding: EdgeInsets.only(bottom: 15.0, top: 15.0, left: 25.0, right: 25.0),
                     splashColor: Color(0xFF1F1F1F),
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(context, 'menu', (route) => false);
+                      Navigator.of(context).pushNamed('menu');
                     },
                     child: Text(
                       "Play Again",
