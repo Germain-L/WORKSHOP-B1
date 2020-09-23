@@ -15,7 +15,6 @@ class Indications extends StatefulWidget {
 }
 
 class _IndicationsState extends State<Indications> {
-  
   int progress_value = 0;
 
   @override
@@ -49,7 +48,6 @@ class _IndicationsState extends State<Indications> {
           border: Border.all(width: 3),
       ),
       child: Stack(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Align(
             alignment: Alignment.bottomCenter,
@@ -97,22 +95,6 @@ class _IndicationsState extends State<Indications> {
               ],
             ),
           ),
-          if (!game.win)
-            Transform.rotate(
-              angle: game.currentArrowDirection - (pi / 2),
-              child: SvgPicture.asset(
-                'assets/arrow.svg',
-                fit: BoxFit.scaleDown,
-                height: 100,
-                color: game.arrowColor,
-              ),
-            ),
-          if (!game.win) SizedBox(height: 10),
-          if (!game.win)
-            Text(
-              game.currentWordDirection,
-              style: TextStyle(fontSize: 35, color: game.wordColor),
-            ),
         ],
       ),
     );
