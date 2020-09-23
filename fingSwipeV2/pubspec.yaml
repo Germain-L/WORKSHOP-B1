@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.12.2
+  flutter_animation_progress_bar: ^1.0.5
 
   cupertino_icons: ^1.0.0
   swipedetector: ^1.2.0
