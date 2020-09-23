@@ -14,9 +14,6 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   bool start = true;
 
-  void startToFalse() {
-    setState(() => start = false);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +21,15 @@ class _GamePageState extends State<GamePage> {
     
 
     if (game.finished == true) {
-      Navigator.pushNamed(context, 'normalEnd');
+      Navigator.pushNamedAndRemoveUntil(context, 'normalEnd', (Route<dynamic> route) => false);
+      setState(() {
+        start = true;
+      });
     }
 
     if (start == true) {
       game.runGame();
-      startToFalse();
+      setState(() => start = false);
     }
 
     return Stack(
