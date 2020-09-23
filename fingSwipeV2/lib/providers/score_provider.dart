@@ -1,10 +1,9 @@
 import 'dart:convert';
 
 import 'package:fingSwipeV2/models/leaderboard_score.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
-class Score with ChangeNotifier {
+class Score {
   void store(String username, int score) async {
     var result = await http.post("https://fingswipe.app/api/score",
         body: {"username": username, "score": score});

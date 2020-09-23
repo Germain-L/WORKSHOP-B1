@@ -22,7 +22,7 @@ var ap = new AudioCache(fixedPlayer: audioPlayer);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ap.clearCache();
-  await ap.loop('music/background.mp3', isNotification: false);
+  // await ap.loop('music/background.mp3', isNotification: false);
   // await ap.play('music/background.mp3', isNotification: false);
   runApp(
     MultiProvider(
@@ -30,12 +30,6 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => Game(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => LocalScoreProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => Score(),
-        )
       ],
       child: MaterialApp(
         routes: {
