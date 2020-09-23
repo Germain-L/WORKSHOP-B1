@@ -13,7 +13,6 @@ class Indications extends StatefulWidget {
 }
 
 class _IndicationsState extends State<Indications> {
-
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
@@ -21,8 +20,7 @@ class _IndicationsState extends State<Indications> {
     double _anw = 0.0;
     double _anh = 0.0;
 
-    if (game.win)
-    {
+    if (game.win) {
       _anw = 300.0;
       _anh = 300.0;
     }
@@ -31,8 +29,9 @@ class _IndicationsState extends State<Indications> {
       width: 300,
       height: 300,
       decoration: BoxDecoration(
-          border: Border.all(width: 3),
-          borderRadius: BorderRadius.circular(25)),
+        border: Border.all(width: 3),
+        borderRadius: BorderRadius.circular(25),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -46,20 +45,22 @@ class _IndicationsState extends State<Indications> {
             duration: Duration(milliseconds: 500),
             curve: Curves.fastOutSlowIn,
           ),
-          if (!game.win) Transform.rotate(
-            angle: game.currentArrowDirection - (pi / 2),
-            child: SvgPicture.asset(
-              'assets/arrow.svg',
-              fit: BoxFit.scaleDown,
-              height: 100,
-              color: game.arrowColor,
+          if (!game.win)
+            Transform.rotate(
+              angle: game.currentArrowDirection - (pi / 2),
+              child: SvgPicture.asset(
+                'assets/arrow.svg',
+                fit: BoxFit.scaleDown,
+                height: 100,
+                color: game.arrowColor,
+              ),
             ),
-          ),
           if (!game.win) SizedBox(height: 10),
-          if (!game.win) Text(
-            game.currentWordDirection,
-            style: TextStyle(fontSize: 35, color: game.wordColor),
-          ),
+          if (!game.win)
+            Text(
+              game.currentWordDirection,
+              style: TextStyle(fontSize: 35, color: game.wordColor),
+            ),
         ],
       ),
     );
