@@ -1,9 +1,7 @@
-import 'package:fingSwipeV2/providers/navigation_provider.dart';
 import 'package:fingSwipeV2/widgets/core_widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
-import 'package:swipedetector/swipedetector.dart';
 
 import '../providers/game_provider.dart';
 import '../widgets/game_widgets/indications.dart';
@@ -34,8 +32,16 @@ class _GamePageState extends State<GamePage> {
       startToFalse();
     }
 
-
-    return Scaffold(
+    return Stack(
+        children: <Widget>[
+          Image.asset(
+            "assets/bg2.png",
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
+          ),
+    Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: CustomAppBar(),
       body: SizedBox.expand(
         child: SimpleGestureDetector(
@@ -94,6 +100,7 @@ class _GamePageState extends State<GamePage> {
           ),
         ),
       ),
-    );
+    )
+    ]);
   }
 }

@@ -6,7 +6,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
 
   CustomAppBar({
     Key key,
-  })  : preferredSize = Size.fromHeight(70.0),
+  })  : preferredSize = Size.fromHeight(80.0),
         super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(15.0),
         child: Row(
           children: [
             SizedBox(

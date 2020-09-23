@@ -13,20 +13,40 @@ class Indications extends StatefulWidget {
 }
 
 class _IndicationsState extends State<Indications> {
+
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
+
+    double _anw = 0.0;
+    double _anh = 0.0;
+
+    if (game.win)
+    {
+      _anw = 300.0;
+      _anh = 300.0;
+    }
+
     return Container(
       width: 300,
       height: 300,
       decoration: BoxDecoration(
           border: Border.all(width: 3),
           borderRadius: BorderRadius.circular(25)),
-      padding: const EdgeInsets.all(8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Transform.rotate(
+          AnimatedContainer(
+            width: _anw,
+            height: _anh,
+            decoration: BoxDecoration(
+              color: Color(0xFF20E692),
+              borderRadius: BorderRadius.circular(23),
+            ),
+            duration: Duration(milliseconds: 500),
+            curve: Curves.fastOutSlowIn,
+          ),
+          if (!game.win) Transform.rotate(
             angle: game.currentArrowDirection - (pi / 2),
             child: SvgPicture.asset(
               'assets/arrow.svg',
@@ -35,8 +55,8 @@ class _IndicationsState extends State<Indications> {
               color: game.arrowColor,
             ),
           ),
-          SizedBox(height: 10),
-          Text(
+          if (!game.win) SizedBox(height: 10),
+          if (!game.win) Text(
             game.currentWordDirection,
             style: TextStyle(fontSize: 35, color: game.wordColor),
           ),
