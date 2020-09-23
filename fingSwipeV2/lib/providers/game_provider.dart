@@ -10,6 +10,7 @@ class Game with ChangeNotifier {
 
   bool isAlive = true;
   bool finished = false;
+  bool win = false;
 
   int score = 1;
   int previousScore = 0;
@@ -55,6 +56,7 @@ class Game with ChangeNotifier {
 
     while (isAlive) {
 
+      win = false;
       changeDirectionV1();
       
       changeColor();
@@ -127,6 +129,8 @@ class Game with ChangeNotifier {
     if (direction == absoluteDirection) {
       previousScore = score;
       score++;
+      win = true;
+      notifyListeners();
     } else {
       this.end();
     }

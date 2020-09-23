@@ -4,7 +4,13 @@ import 'package:fingSwipeV2/widgets/core_widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NormalEnd extends StatelessWidget {
+class NormalEnd extends StatefulWidget {
+
+  @override
+  _NormalEndState createState() => _NormalEndState();
+}
+
+class _NormalEndState extends State<NormalEnd> {
 
   @override
   Widget build(BuildContext context) {
