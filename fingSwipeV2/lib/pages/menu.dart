@@ -11,7 +11,7 @@ class MenuPage extends StatelessWidget {
       appBar: CustomAppBar(),
       body: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, 'leaderboard');
+          Navigator.pushNamed(context, 'game');
         },
         child: Center(
           child: Transform.scale(
