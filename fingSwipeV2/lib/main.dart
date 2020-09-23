@@ -1,4 +1,6 @@
 
+import 'package:fingSwipeV2/models/leaderboard_score.dart';
+import 'package:fingSwipeV2/pages/leaderboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +30,8 @@ void main() {
         routes: {
           'menu':  (context) => MenuPage(),
           'normalGame': (context) => GamePage(),
-          'normalEnd': (context) => NormalEnd()
+          'normalEnd': (context) => NormalEnd(),
+          'leaderboard': (context) => LeaderboardPage(),
         },
         theme: ThemeData(backgroundColor: Color(0xffEEEEEE)),
         home: MenuPage(),
@@ -36,3 +39,5 @@ void main() {
     ),
   );
 }
+
+
