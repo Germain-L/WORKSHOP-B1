@@ -149,7 +149,10 @@ class _NormalEndState extends State<NormalEnd> {
                   splashColor: Color(0xFF1F1F1F),
                   onPressed: () {
                     Navigator.pushNamedAndRemoveUntil(
-                        context, 'menu', (route) => false);
+                      context,
+                      'menu',
+                      (route) => false,
+                    );
                   },
                   child: Text(
                     "Play Again",
