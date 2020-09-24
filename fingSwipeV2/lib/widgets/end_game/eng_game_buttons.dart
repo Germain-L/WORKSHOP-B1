@@ -1,26 +1,53 @@
 import 'package:flutter/material.dart';
 
 class EndGameButtons extends StatelessWidget {
+
   final String text;
   final String route;
+  final int mode;
 
-  const EndGameButtons({Key key, this.text, this.route}) : super(key: key);
+  const EndGameButtons({Key key, this.text, this.route, this.mode}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
+
+    Color color;
+    Color textColor;
+    Color splashColor;
+    Border border;
+
+    switch (this.mode) {
+      case 1:
+        color = Color(0xff6ec2bb);
+        splashColor = Color(0xff6ec2bb);
+        textColor = Color(0xffEEEEEE);
+        border = Border.all(width: 0, color: Color(0xff6ec2bb));
+        break;
+      case 2:
+        color = Color(0xffffffff);
+        splashColor = Color(0xffffffff);
+        textColor = Color(0xff6ec2bb);
+        border = Border.all(width: 2, color: Color(0xff6ec2bb));
+        break;
+    }
+
     return Container(
-      margin: EdgeInsets.only(top: 25.0),
+      margin: EdgeInsets.only(top: 10.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        border: border,
+      ),
       child: FlatButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50.0),
         ),
-        color: Color(0xFF000000),
-        textColor: Colors.white,
+        color: color,
+        textColor: textColor,
         disabledColor: Colors.grey,
         disabledTextColor: Colors.black,
         padding:
-            EdgeInsets.only(bottom: 15.0, top: 15.0, left: 25.0, right: 25.0),
-        splashColor: Color(0xFF1F1F1F),
+            EdgeInsets.only(bottom: 15.0, top: 15.0, left: 45.0, right: 45.0),
+        splashColor: splashColor,
         onPressed: () {
           Navigator.pushNamedAndRemoveUntil(
             context,

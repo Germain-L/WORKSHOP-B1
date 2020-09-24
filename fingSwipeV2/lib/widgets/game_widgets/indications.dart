@@ -15,16 +15,17 @@ class Indications extends StatefulWidget {
 
 class _IndicationsState extends State<Indications> {
 
-  int progress_value = 0;
+  int progress_value = 200;
   bool run = true;
 
   @override
   void initState() {
-    Timer.periodic(Duration(milliseconds: 1), (Timer timer) {
+    print(new DateTime.now());
+    Timer.periodic(Duration(milliseconds: 200), (Timer timer) {
       if (!this.run) timer.cancel();
       else setState(() {
-        if (this.progress_value == 2000) this.progress_value = 0;
-        this.progress_value++;
+        if (this.progress_value >= 2000) this.progress_value = 200;
+        else this.progress_value += 200;
       });
     }); 
     super.initState();
@@ -66,9 +67,11 @@ class _IndicationsState extends State<Indications> {
               direction: Axis.horizontal,
               verticalDirection: VerticalDirection.up,
               currentValue: progress_value,
+              // progressColor: Color(0xFF000000),
               progressColor: Color(0xFFEEEEEE),
               borderRadius: 0,
               animatedDuration: Duration(milliseconds: 0),
+              // displayText: '%',
             ),
           ),
           Center(

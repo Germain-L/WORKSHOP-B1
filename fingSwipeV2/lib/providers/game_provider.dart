@@ -45,7 +45,7 @@ class Game with ChangeNotifier {
   Color color_arrow = Colors.black;
   Color color_word = Colors.black;
   
-  Duration time = Duration(seconds: 2);
+  Duration time = Duration(milliseconds: 2000);
 
   void initialize()
   {
