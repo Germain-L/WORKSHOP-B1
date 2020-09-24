@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   CustomAppBar({
     Key key,
-  })  : preferredSize = Size.fromHeight(80.0),
+  })  : preferredSize = Size.fromHeight(110.0),
         super(key: key);
 
   @override
@@ -23,11 +23,8 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 40,
-              child: Image.asset(
-                'assets/logo.png',
-                fit: BoxFit.fitWidth,
-              ),
+              width: 80,
+              child: Image.asset('assets/logo.png', fit: BoxFit.fitWidth,),
             ),
             Row(
               children: [

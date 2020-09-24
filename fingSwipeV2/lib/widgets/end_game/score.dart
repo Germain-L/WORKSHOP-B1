@@ -19,7 +19,8 @@ class DisplayedScore extends StatelessWidget {
       padding: const EdgeInsets.all(25.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: this.color, width: 2.0),
+        // border: Border.all(color: this.color, width: 2.0),
+        color: Color(0xffEEEEEE)
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

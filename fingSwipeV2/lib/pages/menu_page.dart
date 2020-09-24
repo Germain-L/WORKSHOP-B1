@@ -11,10 +11,12 @@ import '../widgets/menu_widgets/buttons.dart';
 class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     final language = Provider.of<LanguageProvider>(context);
+
     return Stack(children: <Widget>[
       Image.asset(
-        "assets/background1.png",
+        "assets/background.png",
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         fit: BoxFit.cover,

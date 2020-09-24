@@ -25,10 +25,14 @@ class MenuButtons extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 25),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
+              image: DecorationImage(
+                image: AssetImage("assets/button.png"),
+                fit: BoxFit.cover,
+              ),
               // border: Border.all(width: 3, color: Color(0xff6ec2bb)),
-              color: Color(0xff6ec2bb),
+              // color: Color(0xff6ec2bb),
             ),
-            child: Center(
+            child: Center
               child: Text(
                 text,
                 style: TextStyle(fontSize: 20, color: Color(0xffEEEEEEE)),
