@@ -43,7 +43,7 @@ class _NormalEndState extends State<NormalEnd> {
         fit: BoxFit.cover,
       ),
       Scaffold(
-      // resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.transparent,
       appBar: CustomAppBar(),
       body: SizedBox.expand(
         child: Center(
@@ -139,7 +139,6 @@ class _NormalEndState extends State<NormalEnd> {
           ),
         ),
       ),
-    ),
     ],
     );
   }
