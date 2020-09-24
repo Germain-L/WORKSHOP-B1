@@ -16,9 +16,6 @@ var ap = new AudioCache(fixedPlayer: audioPlayer);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // ap.clearCache();
-  // await ap.loop('music/background.mp3', isNotification: false);
-  // await ap.play('music/background.mp3', isNotification: false);
   runApp(
     MultiProvider(
       providers: [
