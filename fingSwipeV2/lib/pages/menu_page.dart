@@ -1,5 +1,9 @@
+import 'package:fingSwipeV2/main.dart';
+import 'package:fingSwipeV2/providers/language_provider.dart';
+import 'package:fingSwipeV2/widgets/menu_widgets/language_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/core_widgets/appbar.dart';
 import '../widgets/menu_widgets/buttons.dart';
@@ -7,7 +11,9 @@ import '../widgets/menu_widgets/buttons.dart';
 class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
+
+    final language = Provider.of<LanguageProvider>(context);
+
     return Stack(children: <Widget>[
       Image.asset(
         "assets/background.png",
@@ -37,7 +43,7 @@ class MenuPage extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(top: 15),
                       child: Text(
-                        "PLAY",
+                        language.translateToFrench ? "JOUER" : "PLAY",
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 30,
@@ -49,7 +55,18 @@ class MenuPage extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: MenuButtons(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    MenuButtons(
+                      text:
+                          language.translateToFrench ? "CLASSEMENT" : "LEADERBOARD",
+                      onTap: () {
+                        Navigator.of(context).pushNamed('leaderboard');
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

@@ -1,3 +1,5 @@
+import 'package:fingSwipeV2/main.dart';
+import 'package:fingSwipeV2/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +29,7 @@ class _NormalEndState extends State<NormalEnd> {
   @override
   Widget build(BuildContext context) {
     var game = Provider.of<Game>(context);
+    final language = Provider.of<LanguageProvider>(context);
 
     if (stored == false) {
       localScore.storeToCache(game.score);
@@ -56,7 +59,9 @@ class _NormalEndState extends State<NormalEnd> {
                 future: localScore.getHighScore(),
                 builder: (context, snapshot) {
                   return DisplayedScore(
-                    scoreType: 'BEST SCORE',
+                    scoreType: language.translateToFrench
+                        ? 'MEILLEURS SCORE'
+                        : 'BEST SCORE',
                     score: snapshot.data,
                     color: Color(0xff6ec2bb),
                   );
@@ -64,7 +69,7 @@ class _NormalEndState extends State<NormalEnd> {
               ),
 
               DisplayedScore(
-                scoreType: 'LAST SCORE',
+                scoreType: 'SCORE',
                 score: game.score,
                 color: Color(0xff000000),
               ),
@@ -89,7 +94,9 @@ class _NormalEndState extends State<NormalEnd> {
                         TextEditingController nameController =
                             TextEditingController();
                         return AlertDialog(
-                          title: Text("Enter name:"),
+                          title: Text(
+                              language.translateToFrench ? 'Entrez votre pseudo:' :
+                              "Enter name:",),
                           content: TextField(
                             controller: nameController,
                             autocorrect: true,
@@ -108,7 +115,7 @@ class _NormalEndState extends State<NormalEnd> {
                                   score.store(nameController.text, game.score);
                                   Navigator.pop(context);
                                 },
-                                child: Text('Submit'),
+                                child: Text(language.translateToFrench ? 'Partager' : 'Submit'),
                               )
                             ],
                           );
@@ -116,18 +123,22 @@ class _NormalEndState extends State<NormalEnd> {
                       );
                     },
                     child: Text(
-                      "ADD ON LEADERBOARD",
+                      language.translateToFrench
+                          ? "AJOUTER AU CLASSEMENT"
+                          : "ADD ON LEADERBOARD",
                       style: TextStyle(fontSize: 18.0),
                     ),
                   ),
                 ),
                 EndGameButtons(
-                  text: 'PLAY AGAIN',
+                  text: language.translateToFrench ? 'REJOUER' : 'PLAY AGAIN',
                   route: 'normalGame',
                   mode: 1,
                 ),
                 EndGameButtons(
-                  text: 'MAIN MENU',
+                  text: language.translateToFrench
+                      ? 'MENU PRINCIPAL'
+                      : 'MAIN MENU',
                   route: 'menu',
                   mode: 2,
                 ),

@@ -1,3 +1,4 @@
+import 'package:fingSwipeV2/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
@@ -12,10 +13,22 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  
+  String translateMode(String swipeMode, bool needTranslate) {
+    if (needTranslate) {
+      if (swipeMode == 'Arrows !') {
+        return 'Flèches !';
+      } else if (swipeMode == 'Text !') {
+        return 'Texte !';
+      }
+    }
+
+    return swipeMode;
+  }
+
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
+    final language = Provider.of<LanguageProvider>(context);
 
     if (!game.run && game.engine) {
       game.resetEngine();
@@ -74,7 +87,8 @@ class _GamePageState extends State<GamePage> {
                       style: TextStyle(fontSize: 33),
                     ),
                     Text(
-                      game.getSwipeMode(),
+                      translateMode(
+                          game.getSwipeMode(), language.translateToFrench),
                       style:
                           TextStyle(fontSize: 50, fontWeight: FontWeight.w700),
                     ),
@@ -82,7 +96,9 @@ class _GamePageState extends State<GamePage> {
                       height: 20,
                     ),
                     Text(
-                      "Swipe where indicated !",
+                      language.translateToFrench
+                          ? 'Glisse suivant les instructions'
+                          : "Swipe where indicated !",
                       style: TextStyle(fontSize: 20),
                     ),
                     SizedBox(
