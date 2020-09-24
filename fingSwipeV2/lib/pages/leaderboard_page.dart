@@ -12,31 +12,51 @@ class LeaderboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(context, 'menu', (route) => false);
-        },
-        label: Text('Menu'),
-        icon: Icon(LineIcons.arrow_left),
-        backgroundColor: Colors.redAccent,
+      floatingActionButton: Transform.translate(
+        offset: Offset(-5, -5),
+        child: Transform.scale(
+          scale: 1.1,
+          child: FloatingActionButton.extended(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, 'menu', (route) => false);
+            },
+            label: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Text(
+                'MENU',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white),
+              ),
+            ),
+            // icon: Icon(LineIcons.long_arrow_left , color: Colors.black,),
+            backgroundColor: Color(0xff6DC3BC),
+          ),
+        ),
       ),
       body: Column(
         children: [
-          SizedBox(
-            height: 10,
-          ),
           Padding(
-            padding: const EdgeInsets.only(left: 20.0),
+            padding: const EdgeInsets.only(left: 20.0, top: 10, bottom: 10),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Leaderboard",
-                style: TextStyle(fontSize: 35),
+                """
+LEADER
+BOARD""",
+                style: TextStyle(
+                  fontSize: 90,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xff6DC3BC),
+                ),
               ),
             ),
           ),
-          SizedBox(
-            height: 10,
+          Divider(
+            color: Color(0xffEEEEEE),
+            thickness: 2,
           ),
           Expanded(
             child: FutureBuilder<List<LeaderboardScore>>(
@@ -49,15 +69,16 @@ class LeaderboardPage extends StatelessWidget {
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data.length,
                     separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(
-                        height: 10,
+                      return Divider(
+                        color: Color(0xffEEEEEE),
+                        thickness: 2,
                       );
                     },
                     itemBuilder: (BuildContext context, int index) {
                       return ScoreWidget(
                         score: snapshot.data[index].score,
                         name: snapshot.data[index].name,
-                        rank: index,
+                        rank: index+1,
                       );
                     },
                   );
