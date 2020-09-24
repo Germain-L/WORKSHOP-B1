@@ -61,7 +61,7 @@ class _IndicationsState extends State<Indications> {
           Align(
             alignment: Alignment.bottomCenter,
             child: FAProgressBar(
-              maxValue: 1000,
+              maxValue: 2000,
               size: 300,
               direction: Axis.horizontal,
               verticalDirection: VerticalDirection.up,

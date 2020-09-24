@@ -12,14 +12,16 @@ class MenuButtons extends StatelessWidget {
             Navigator.pushNamed(context, 'leaderboard');
           },
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+            height: 60,
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+            margin: const EdgeInsets.only(bottom: 25),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(),
-              color: Colors.black,
+              borderRadius: BorderRadius.circular(50),
+              // border: Border.all(width: 3, color: Color(0xff6ec2bb)),
+              color: Color(0xff6ec2bb),
             ),
             child: Center(
-              child: Text("Leaderboard", style: TextStyle(fontSize: 30, color: Color(0xffEEEEEE)),),
+              child: Text("Leaderboard", style: TextStyle(fontSize: 20, color: Color(0xffEEEEEEE)),),
             ),
           ),
         ),
