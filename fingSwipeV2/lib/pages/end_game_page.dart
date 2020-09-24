@@ -51,6 +51,7 @@ class _NormalEndState extends State<NormalEnd> {
                   return DisplayedScore(
                     scoreType: 'BEST SCORE',
                     score: snapshot.data,
+                    color: Color(0xff6ec2bb),
                   );
                 }
               ),
@@ -58,10 +59,11 @@ class _NormalEndState extends State<NormalEnd> {
               DisplayedScore(
                 scoreType: 'LAST SCORE',
                 score: game.score,
+                color: Color(0xff000000),
               ),
 
               Container(
-                margin: EdgeInsets.only(top: 50.0),
+                margin: EdgeInsets.only(top: 50.0, bottom: 25.0),
                 child: FlatButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50.0),
@@ -108,7 +110,7 @@ class _NormalEndState extends State<NormalEnd> {
                   },
                   child: Text(
                     "Add on leaderboard",
-                    style: TextStyle(fontSize: 20.0),
+                    style: TextStyle(fontSize: 18.0),
                   ),
                 ),
               ),
@@ -116,11 +118,13 @@ class _NormalEndState extends State<NormalEnd> {
               EndGameButtons(
                 text: 'PLAY AGAIN',
                 route: 'normalGame',
+                mode: 1,
               ),
               
               EndGameButtons(
                 text: 'MAIN MENU',
                 route: 'menu',
+                mode: 2,
               ),
             ],
           ),
