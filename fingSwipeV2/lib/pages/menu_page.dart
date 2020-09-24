@@ -47,7 +47,10 @@ class MenuPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Align(alignment: Alignment.bottomCenter, child: MenuButtons()),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: MenuButtons(),
+              ),
             ],
           ),
         ),

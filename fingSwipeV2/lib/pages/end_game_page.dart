@@ -102,38 +102,40 @@ class _NormalEndState extends State<NormalEnd> {
                               Navigator.pop(context);
                             },
                           ),
-                          actions: [
-                            FlatButton(
-                              onPressed: () {
-                                score.store(nameController.text, game.score);
-                                Navigator.pop(context);
-                              },
-                              child: Text('Submit'),
-                            )
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  child: Text(
-                    "Add on leaderboard",
-                    style: TextStyle(fontSize: 18.0),
+                            actions: [
+                              FlatButton(
+                                onPressed: () {
+                                  score.store(nameController.text, game.score);
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Submit'),
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Text(
+                      "ADD ON LEADERBOARD",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
                   ),
                 ),
-              ),
-
-              EndGameButtons(
-                text: 'PLAY AGAIN',
-                route: 'normalGame',
-                mode: 1,
-              ),
-              
-              EndGameButtons(
-                text: 'MAIN MENU',
-                route: 'menu',
-                mode: 2,
-              ),
-            ],
+                EndGameButtons(
+                  text: 'PLAY AGAIN',
+                  route: 'normalGame',
+                  mode: 1,
+                ),
+                EndGameButtons(
+                  text: 'MAIN MENU',
+                  route: 'menu',
+                  mode: 2,
+                ),
+                SizedBox(
+                  height: 20,
+                )
+              ],
+            ),
           ),
         ),
       ),

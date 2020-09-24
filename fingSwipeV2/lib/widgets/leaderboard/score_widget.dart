@@ -55,20 +55,25 @@ class ScoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        gradient: generateColour()
-      ),
-      padding: const EdgeInsets.all(15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("#${rank+1}", style: textStyle,),
-          Text(name, style: textStyle,),
-          Text(score.toString(), style: textStyle,)
-        ],
-      ),
+    // return Container(
+    //   decoration: BoxDecoration(
+    //     borderRadius: BorderRadius.circular(25),
+    //     gradient: generateColour()
+    //   ),
+    //   padding: const EdgeInsets.all(15),
+    //   child: Row(
+    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //     children: [
+    //       Text("#${rank+1}", style: textStyle,),
+    //       Text(name, style: textStyle,),
+    //       Text(score.toString(), style: textStyle,)
+    //     ],
+    //   ),
+    // );
+    return ListTile(
+      leading: Text(rank.toString(), style: TextStyle(fontSize: 25),),
+      title: Text(name, style: TextStyle(fontSize: 30),),
+      trailing: Text("$score", style: TextStyle(fontSize: 25),),
     );
   }
 }

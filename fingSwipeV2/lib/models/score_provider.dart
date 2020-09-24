@@ -6,7 +6,6 @@ import 'leaderboard_score.dart';
 
 class Score {
   void store(String username, int score) async {
-    print("$username, $score");
     
     Map body = Map.from({
       'username': username,
