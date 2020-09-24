@@ -1,3 +1,4 @@
+import 'package:fingSwipeV2/main.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 

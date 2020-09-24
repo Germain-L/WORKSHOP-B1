@@ -1,5 +1,8 @@
+import 'package:fingSwipeV2/main.dart';
+import 'package:fingSwipeV2/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/core_widgets/appbar.dart';
 import '../widgets/menu_widgets/buttons.dart';
@@ -7,6 +10,7 @@ import '../widgets/menu_widgets/buttons.dart';
 class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final language = Provider.of<LanguageProvider>(context);
     return Stack(children: <Widget>[
       Image.asset(
         "assets/background1.png",
@@ -36,7 +40,7 @@ class MenuPage extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(top: 15),
                       child: Text(
-                        "PLAY",
+                        language.translateToFrench ? "JOUER" : "PLAY",
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 30,
@@ -47,8 +51,27 @@ class MenuPage extends StatelessWidget {
                 ),
               ),
               Align(
+                alignment: Alignment.topRight,
+                child: Row(
+                  children: [
+                    MenuButtons(
+                      text: language.translateToFrench ? 'In english' : 'en français',
+                      onTap: () {
+                        language.changeLanguage();
+                      },
+                    )
+                  ],
+                ),
+              ),
+              Align(
                 alignment: Alignment.bottomCenter,
-                child: MenuButtons(),
+                child: MenuButtons(
+                  text:
+                      language.translateToFrench ? "CLASSEMENT" : "LEADERBOARD",
+                  onTap: () {
+                    Navigator.of(context).pushNamed('leaderboard');
+                  },
+                ),
               ),
             ],
           ),

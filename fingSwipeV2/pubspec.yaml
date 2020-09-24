@@ -24,6 +24,7 @@ dependencies:
   flutter_launcher_icons: ^0.8.0
   shared_preferences: ^0.5.11
   audioplayers: ^0.16.1
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

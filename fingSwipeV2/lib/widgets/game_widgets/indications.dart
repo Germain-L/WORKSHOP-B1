@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:fingSwipeV2/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,20 +15,40 @@ class Indications extends StatefulWidget {
 }
 
 class _IndicationsState extends State<Indications> {
-
   int progress_value = 200;
+
   bool run = true;
+
+  String translateText(String currentText, bool needTranslate) {
+    if (needTranslate) {
+      if (currentText == "Top") {
+        return "Haut";
+      } else if (currentText == "Right") {
+        return "Droite";
+      } else if (currentText == "Bottom") {
+        return "Bas";
+      } else if (currentText == "Left") {
+        return "Gauche";
+      }
+    }
+
+    return currentText;
+  }
 
   @override
   void initState() {
     print(new DateTime.now());
     Timer.periodic(Duration(milliseconds: 200), (Timer timer) {
-      if (!this.run) timer.cancel();
-      else setState(() {
-        if (this.progress_value >= 2000) this.progress_value = 200;
-        else this.progress_value += 200;
-      });
-    }); 
+      if (!this.run)
+        timer.cancel();
+      else
+        setState(() {
+          if (this.progress_value >= 2000)
+            this.progress_value = 200;
+          else
+            this.progress_value += 200;
+        });
+    });
     super.initState();
   }
 
@@ -39,11 +60,10 @@ class _IndicationsState extends State<Indications> {
 
   @override
   Widget build(BuildContext context) {
-
+    final language = Provider.of<LanguageProvider>(context);
     final game = Provider.of<Game>(context);
 
-    if (game.score_old != game.score)
-    {
+    if (game.score_old != game.score) {
       this.progress_value = 0;
       game.score_old = game.score;
     }
@@ -55,7 +75,7 @@ class _IndicationsState extends State<Indications> {
       width: 300,
       height: 300,
       decoration: BoxDecoration(
-          border: Border.all(width: 3),
+        border: Border.all(width: 3),
       ),
       child: Stack(
         children: [
@@ -98,10 +118,10 @@ class _IndicationsState extends State<Indications> {
                   ),
                 ),
                 SizedBox(height: 10),
-                  Text(
-                    game.getWordDirection(),
-                    style: TextStyle(fontSize: 35, color: game.getWordColor()),
-                  ),
+                Text(
+                  translateText(game.getWordDirection(), language.translateToFrench),
+                  style: TextStyle(fontSize: 35, color: game.getWordColor()),
+                ),
               ],
             ),
           ),
