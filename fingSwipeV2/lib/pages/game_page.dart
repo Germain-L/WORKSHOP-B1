@@ -29,7 +29,7 @@ class _GamePageState extends State<GamePage> {
 
     return Stack(children: <Widget>[
       Image.asset(
-        "assets/bg2.png",
+        "assets/background.png",
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         fit: BoxFit.cover,

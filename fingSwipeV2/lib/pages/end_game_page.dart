@@ -35,66 +35,73 @@ class _NormalEndState extends State<NormalEnd> {
       });
     }
 
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      child: Scaffold(
-        // resizeToAvoidBottomInset: false,
-        appBar: CustomAppBar(),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 50),
-                FutureBuilder<int>(
-                    future: localScore.getHighScore(),
-                    builder: (context, snapshot) {
-                      return DisplayedScore(
-                        scoreType: 'BEST SCORE',
-                        score: snapshot.data,
-                        color: Color(0xff6ec2bb),
-                      );
-                    }),
-                DisplayedScore(
-                  scoreType: 'LAST SCORE',
-                  score: game.score,
-                  color: Color(0xff000000),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 50.0, bottom: 25.0),
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    color: Color(0xFFEEEEEE),
-                    textColor: Color(0xFF0E0E0E),
-                    disabledColor: Colors.grey,
-                    disabledTextColor: Colors.black,
-                    padding: EdgeInsets.only(
-                        bottom: 15.0, top: 15.0, left: 25.0, right: 25.0),
-                    splashColor: Color(0xFFEDEDED),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          TextEditingController nameController =
-                              TextEditingController();
-                          return AlertDialog(
-                            title: Text("Enter name:"),
-                            content: TextField(
-                              controller: nameController,
-                              autocorrect: true,
-                              autofocus: true,
-                              decoration: InputDecoration(
-                                hintText: "Name",
-                              ),
-                              onSubmitted: (String newName) {
-                                score.store(nameController.text, game.score);
-                                Navigator.pop(context);
-                              },
+    return Stack(children: <Widget>[
+      Image.asset(
+        "assets/background.png",
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        fit: BoxFit.cover,
+      ),
+      Scaffold(
+      // resizeToAvoidBottomInset: false,
+      appBar: CustomAppBar(),
+      body: SizedBox.expand(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+
+              FutureBuilder<int>(
+                future: localScore.getHighScore(),
+                builder: (context, snapshot) {
+                  return DisplayedScore(
+                    scoreType: 'BEST SCORE',
+                    score: snapshot.data,
+                    color: Color(0xff6ec2bb),
+                  );
+                }
+              ),
+
+              DisplayedScore(
+                scoreType: 'LAST SCORE',
+                score: game.score,
+                color: Color(0xff000000),
+              ),
+
+              Container(
+                margin: EdgeInsets.only(top: 50.0, bottom: 25.0),
+                child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                  color: Color(0xFFEEEEEE),
+                  textColor: Color(0xFF0E0E0E),
+                  disabledColor: Colors.grey,
+                  disabledTextColor: Colors.black,
+                  padding: EdgeInsets.only(
+                      bottom: 15.0, top: 15.0, left: 25.0, right: 25.0),
+                  splashColor: Color(0xFFEDEDED),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        TextEditingController nameController =
+                            TextEditingController();
+                        return AlertDialog(
+                          title: Text("Enter name:"),
+                          content: TextField(
+                            controller: nameController,
+                            autocorrect: true,
+                            autofocus: true,
+                            decoration: InputDecoration(
+                              hintText: "Name",
                             ),
+                            onSubmitted: (String newName) {
+                              score.store(nameController.text, game.score);
+                              Navigator.pop(context);
+                            },
+                          ),
                             actions: [
                               FlatButton(
                                 onPressed: () {
@@ -132,6 +139,8 @@ class _NormalEndState extends State<NormalEnd> {
           ),
         ),
       ),
+    ),
+    ],
     );
   }
 }
