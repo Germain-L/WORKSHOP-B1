@@ -35,7 +35,14 @@ class _NormalEndState extends State<NormalEnd> {
       });
     }
 
-    return Scaffold(
+    return Stack(children: <Widget>[
+      Image.asset(
+        "assets/background.png",
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        fit: BoxFit.cover,
+      ),
+      Scaffold(
       // resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(),
       body: SizedBox.expand(
@@ -130,6 +137,8 @@ class _NormalEndState extends State<NormalEnd> {
           ),
         ),
       ),
+    ),
+    ],
     );
   }
 }
