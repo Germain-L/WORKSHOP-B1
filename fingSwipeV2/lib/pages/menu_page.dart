@@ -9,7 +9,7 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       Image.asset(
-        "assets/bg2.png",
+        "assets/background1.png",
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         fit: BoxFit.cover,
@@ -21,27 +21,33 @@ class MenuPage extends StatelessWidget {
           onTap: () {
             Navigator.pushNamed(context, 'normalGame');
           },
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgPicture.asset(
-                  'assets/play.svg',
-                  height: 75,
+          child: Stack(
+            children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/play.svg',
+                      height: 75,
+                    ),
+                    SizedBox(height: 5),
+                    Container(
+                      margin: EdgeInsets.only(top: 15),
+                      child: Text(
+                        "PLAY",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 30,
+                            color: Color(0xff6ec2bb)),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 5),
-                Container(
-                  margin: EdgeInsets.only(top: 15),
-                  child: Text(
-                    "PLAY",
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 30),
-                  ),
-                ),
-                SizedBox(height: 20),
-                MenuButtons()
-              ],
-            ),
+              ),
+              Align(alignment: Alignment.bottomCenter, child: MenuButtons()),
+            ],
           ),
         ),
       )
