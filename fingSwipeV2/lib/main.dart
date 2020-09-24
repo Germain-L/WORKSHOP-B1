@@ -12,8 +12,8 @@ import 'pages/menu_page.dart';
 import 'providers/game_provider.dart';
 
 
-AudioPlayer audioPlayer = new AudioPlayer();
-var ap = new AudioCache(fixedPlayer: audioPlayer);
+// AudioPlayer audioPlayer = new AudioPlayer();
+// var ap = new AudioCache(fixedPlayer: audioPlayer);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
