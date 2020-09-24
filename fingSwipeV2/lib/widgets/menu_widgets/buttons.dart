@@ -32,7 +32,7 @@ class MenuButtons extends StatelessWidget {
               // border: Border.all(width: 3, color: Color(0xff6ec2bb)),
               // color: Color(0xff6ec2bb),
             ),
-            child: Center
+            child: Center (
               child: Text(
                 text,
                 style: TextStyle(fontSize: 20, color: Color(0xffEEEEEEE)),
