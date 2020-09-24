@@ -7,18 +7,16 @@ import 'package:provider/provider.dart';
 import 'pages/end_game_page.dart';
 import 'pages/game_page.dart';
 import 'pages/leaderboard_page.dart';
+import 'pages/leaderboard_page_broken.dart';
 import 'pages/menu_page.dart';
 import 'providers/game_provider.dart';
 
 
-AudioPlayer audioPlayer = new AudioPlayer();
-var ap = new AudioCache(fixedPlayer: audioPlayer);
+// AudioPlayer audioPlayer = new AudioPlayer();
+// var ap = new AudioCache(fixedPlayer: audioPlayer);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // ap.clearCache();
-  // await ap.loop('music/background.mp3', isNotification: false);
-  // await ap.play('music/background.mp3', isNotification: false);
   runApp(
     MultiProvider(
       providers: [
@@ -33,7 +31,6 @@ void main() async {
           'normalEnd': (context) => NormalEnd(),
           'leaderboard': (context) => LeaderboardPage(),
         },
-        theme: ThemeData(backgroundColor: Color(0xffEEEEEE)),
         home: MenuPage(),
       ),
     ),
