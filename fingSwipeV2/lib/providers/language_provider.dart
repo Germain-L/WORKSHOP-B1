@@ -5,8 +5,13 @@ import 'package:flutter/foundation.dart';
 class LanguageProvider with ChangeNotifier {
   bool translateToFrench = false;
 
-  void changeLanguage() {
-    translateToFrench = !translateToFrench;
+  void toFrench() {
+    translateToFrench = true;
+    notifyListeners();
+  }
+
+  void toEnglish() {
+    translateToFrench = false;
     notifyListeners();
   }
 }

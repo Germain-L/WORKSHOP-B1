@@ -1,5 +1,6 @@
 import 'package:fingSwipeV2/main.dart';
 import 'package:fingSwipeV2/providers/language_provider.dart';
+import 'package:fingSwipeV2/widgets/menu_widgets/language_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -51,26 +52,18 @@ class MenuPage extends StatelessWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.topRight,
-                child: Row(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     MenuButtons(
-                      text: language.translateToFrench ? 'In english' : 'en français',
+                      text:
+                          language.translateToFrench ? "CLASSEMENT" : "LEADERBOARD",
                       onTap: () {
-                        language.changeLanguage();
+                        Navigator.of(context).pushNamed('leaderboard');
                       },
-                    )
+                    ),
                   ],
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: MenuButtons(
-                  text:
-                      language.translateToFrench ? "CLASSEMENT" : "LEADERBOARD",
-                  onTap: () {
-                    Navigator.of(context).pushNamed('leaderboard');
-                  },
                 ),
               ),
             ],
