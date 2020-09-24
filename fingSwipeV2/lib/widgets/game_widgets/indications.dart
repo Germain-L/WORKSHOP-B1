@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
@@ -62,7 +61,7 @@ class _IndicationsState extends State<Indications> {
           Align(
             alignment: Alignment.bottomCenter,
             child: FAProgressBar(
-              maxValue: 1000,
+              maxValue: 2000,
               size: 300,
               direction: Axis.horizontal,
               verticalDirection: VerticalDirection.up,
