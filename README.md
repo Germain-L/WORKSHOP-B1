@@ -10,7 +10,7 @@ Fingswipe is an instructive game wich develops your brain reflections just as yo
 
 ## Demo
 
-![DEMO](assets/demo.gif)
+[![DEMO](https://img.youtube.com/vi/1KHsGn1L1zQ/0.jpg)](https://www.youtube.com/watch?v=1KHsGn1L1zQ)
 
 
 ## Tech
