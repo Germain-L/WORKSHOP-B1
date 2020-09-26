@@ -26,6 +26,7 @@ dependencies:
   flutter_animation_progress_bar: ^1.0.5
   flutter_svg: ^0.19.0
   country_icons: ^1.1.1
+  flutter_native_splash: ^0.1.9
 
 
 dev_dependencies:
@@ -38,6 +39,14 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/logo_app_v2.png"
+
+
+flutter_native_splash:
+  # to run:
+  # flutter pub pub run flutter_native_splash:create
+  image: assets/splashscreen.png
+  color: "FFFFFF"
+  fill: true
 
 flutter:
   uses-material-design: true
