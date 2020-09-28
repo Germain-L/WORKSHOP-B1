@@ -1,25 +1,35 @@
+
 import 'package:flutter/material.dart';
 
 class MenuButtons extends StatelessWidget {
+  final  void Function()  onTap;
+  final String text;
 
+  const MenuButtons({Key key, this.onTap, this.text}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, 'leaderboard');
-          },
+          onTap: onTap,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+            height: 60,
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+            margin: const EdgeInsets.only(bottom: 25),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(),
-              color: Colors.black,
+              borderRadius: BorderRadius.circular(50),
+              image: DecorationImage(
+                image: AssetImage("assets/button.png"),
+                fit: BoxFit.cover,
+              ),
             ),
             child: Center(
-              child: Text("Leaderboard", style: TextStyle(fontSize: 30, color: Color(0xffEEEEEE)),),
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 20, color: Color(0xffEEEEEEE)),
+              ),
             ),
           ),
         ),

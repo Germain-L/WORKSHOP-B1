@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class Game with ChangeNotifier {
 
@@ -44,7 +45,7 @@ class Game with ChangeNotifier {
   Color color_arrow = Colors.black;
   Color color_word = Colors.black;
   
-  Duration time = Duration(seconds: 2);
+  Duration time = Duration(milliseconds: 2000);
 
   void initialize()
   {
