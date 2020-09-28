@@ -1,6 +1,4 @@
-import 'dart:ffi';
 
-import 'package:fingSwipeV2/main.dart';
 import 'package:flutter/material.dart';
 
 class MenuButtons extends StatelessWidget {
@@ -15,9 +13,6 @@ class MenuButtons extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         GestureDetector(
-          // onTap: () {
-          //   Navigator.pushNamed(context, 'leaderboard');
-          // },
           onTap: onTap,
           child: Container(
             height: 60,
@@ -29,10 +24,8 @@ class MenuButtons extends StatelessWidget {
                 image: AssetImage("assets/button.png"),
                 fit: BoxFit.cover,
               ),
-              // border: Border.all(width: 3, color: Color(0xff6ec2bb)),
-              // color: Color(0xff6ec2bb),
             ),
-            child: Center
+            child: Center(
               child: Text(
                 text,
                 style: TextStyle(fontSize: 20, color: Color(0xffEEEEEEE)),

@@ -1,10 +1,8 @@
-import 'package:fingSwipeV2/main.dart';
-import 'package:fingSwipeV2/providers/language_provider.dart';
-import 'package:fingSwipeV2/widgets/menu_widgets/language_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/language_provider.dart';
 import '../widgets/core_widgets/appbar.dart';
 import '../widgets/menu_widgets/buttons.dart';
 
