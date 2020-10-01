@@ -14,9 +14,8 @@ class Indications extends StatefulWidget {
   _IndicationsState createState() => _IndicationsState();
 }
 
-class _IndicationsState extends State<Indications> {
-  int progress_value = 200;
-
+class _IndicationsState extends State<Indications>
+    with SingleTickerProviderStateMixin {
   bool run = true;
 
   String translateText(String currentText, bool needTranslate) {
@@ -35,21 +34,25 @@ class _IndicationsState extends State<Indications> {
     return currentText;
   }
 
+  AnimationController timerAnimationController;
+  double target = 0;
+
   @override
   void initState() {
-    print(new DateTime.now());
-    Timer.periodic(Duration(milliseconds: 200), (Timer timer) {
-      if (!this.run)
-        timer.cancel();
-      else
-        setState(() {
-          if (this.progress_value >= 2000)
-            this.progress_value = 200;
-          else
-            this.progress_value += 200;
-        });
-    });
+    timerAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+      lowerBound: 0,
+      upperBound: 300,
+      value: target,
+    )..stop();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timerAnimationController.dispose();
   }
 
   @override
@@ -64,13 +67,15 @@ class _IndicationsState extends State<Indications> {
     final game = Provider.of<Game>(context);
 
     if (game.score_old != game.score) {
-      this.progress_value = 0;
+      timerAnimationController.reset();
       game.score_old = game.score;
     }
 
-    double _anw = 0.0;
-    double _anh = 0.0;
-
+    if (!this.run) {
+      timerAnimationController.dispose();
+    } else {
+      timerAnimationController..forward();
+    }
     return Container(
       width: 300,
       height: 300,
@@ -80,18 +85,16 @@ class _IndicationsState extends State<Indications> {
       child: Stack(
         children: [
           Align(
-            alignment: Alignment.bottomCenter,
-            child: FAProgressBar(
-              maxValue: 2000,
-              size: 300,
-              direction: Axis.horizontal,
-              verticalDirection: VerticalDirection.up,
-              currentValue: progress_value,
-              // progressColor: Color(0xFF000000),
-              progressColor: Color(0xFFEEEEEE),
-              borderRadius: 0,
-              animatedDuration: Duration(milliseconds: 0),
-              // displayText: '%',
+            alignment: Alignment.centerLeft,
+            child: AnimatedBuilder(
+              animation: timerAnimationController,
+              builder: (BuildContext context, Widget child) {
+                return Container(
+                  width: timerAnimationController.value,
+                  height: 300,
+                  color: Colors.black12,
+                );
+              },
             ),
           ),
           Center(
@@ -99,15 +102,6 @@ class _IndicationsState extends State<Indications> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AnimatedContainer(
-                  width: _anw,
-                  height: _anh,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF20E692),
-                  ),
-                  duration: Duration(milliseconds: 1),
-                  curve: Curves.fastOutSlowIn,
-                ),
                 Transform.rotate(
                   angle: game.getArrowDirection() - (pi / 2),
                   child: SvgPicture.asset(
@@ -119,7 +113,8 @@ class _IndicationsState extends State<Indications> {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  translateText(game.getWordDirection(), language.translateToFrench),
+                  translateText(
+                      game.getWordDirection(), language.translateToFrench),
                   style: TextStyle(fontSize: 35, color: game.getWordColor()),
                 ),
               ],
