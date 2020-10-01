@@ -1,6 +1,4 @@
-import 'package:fingSwipeV2/main.dart';
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
 
 import '../models/leaderboard_score.dart';
 import '../models/score_provider.dart';
@@ -32,7 +30,6 @@ class LeaderboardPage extends StatelessWidget {
                     color: Colors.white),
               ),
             ),
-            // icon: Icon(LineIcons.long_arrow_left , color: Colors.black,),
             backgroundColor: Color(0xff6DC3BC),
           ),
         ),

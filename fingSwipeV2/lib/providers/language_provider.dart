@@ -1,4 +1,3 @@
-import 'package:fingSwipeV2/main.dart';
 import 'package:flutter/foundation.dart';
 
 
