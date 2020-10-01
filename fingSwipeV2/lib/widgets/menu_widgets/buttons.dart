@@ -25,7 +25,7 @@ class MenuButtons extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Center(
+            child: Center (
               child: Text(
                 text,
                 style: TextStyle(fontSize: 20, color: Color(0xffEEEEEEE)),
