@@ -15,7 +15,7 @@ class NormalEnd extends StatefulWidget {
 }
 
 class _NormalEndState extends State<NormalEnd> {
-  LocalScore localScore = LocalScore();
+  LocalStorage localScore = LocalStorage();
   Score score = Score();
 
   @override

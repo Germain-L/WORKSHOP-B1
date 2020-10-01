@@ -11,7 +11,7 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final language = Provider.of<LanguageProvider>(context);
-
+    language.getStoredLanguage();
     return Stack(children: <Widget>[
       Image.asset(
         "assets/background.png",
